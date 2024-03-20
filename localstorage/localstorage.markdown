@@ -1,5 +1,3 @@
-(Dev) Local Storage
--------------------
 ## Local Storage Web Application
 
 ### Overview:
