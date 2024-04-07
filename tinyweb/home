@@ -263,9 +263,9 @@ body {
     
     <div class="statsTib">
       <h2 class="AllTimeStatsTitle">Most Searched:</h2>
-        <p class="AllTimeStatsDesc"><a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=youtube" id="statQuery">1. youtube</a></p>
-        <p class="AllTimeStatsDesc"><a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=twitter" id="statQuery">2. twitter</a></p>
-        <p class="AllTimeStatsDesc"><a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=reddit%20apollo%20api" id="statQuery">3. reddit apollo api</a></p>
+        <p class="AllTimeStatsDesc">1. <a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=youtube" id="statQuery">youtube</a></p>
+        <p class="AllTimeStatsDesc">2. <a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=twitter" id="statQuery">twitter</a></p>
+        <p class="AllTimeStatsDesc">3. <a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=reddit%20apollo%20api" id="statQuery">reddit apollo api</a></p>
     </div>
     
   </body>
