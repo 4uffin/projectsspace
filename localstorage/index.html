@@ -2,11 +2,70 @@
 <html lang="en">
 
 <head>
+  <!-- Set character encoding -->
   <meta charset="UTF-8">
+  <!-- Set viewport for responsive design -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Title of the webpage -->
   <title>Local Storage</title>
+  <!-- Favicon for the webpage -->
   <link rel="icon" type="image/x-icon" href="https://searchforurls.neocities.org/Images/foldericon.png">
+  <!-- Internal CSS styles -->
+
   <style>
+    /* Styles for Duffin's Hub Header */
+    .duffinshubHeader {
+      background-color: #3498db;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .duffinshubHeaderLogo {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      /* Remove default margin to avoid spacing */
+    }
+
+    #duffinshubHeaderLogoLink {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .duffinshubHeaderTagline {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      /* Adjust the font size as needed */
+      opacity: 0.7;
+      /* Adjust the opacity for a faded look (1 is fully opaque, 0 is fully transparent) */
+    }
+
+    /* Styles for expand button */
+    .ExpandButton {
+      background: linear-gradient(to bottom, White 0%, LightGrey 50%);
+      color: Black;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+
+    /* Hover styles for expand button */
+    .ExpandButton:hover {
+      background: linear-gradient(to bottom, White 0%, LightGrey 20%);
+      color: Green;
+    }
+
+    .TitleMenuButton {
+      color: Black;
+      background-color: White;
+      font-family: Verdana;
+    }
+
+    .OptionMenuButton {
+      color: Grey;
+      background-color: White;
+      font-family: Verdana;
+    }
+
     /* Base styles for the body */
     body {
       font-family: Arial, sans-serif;
@@ -185,11 +244,29 @@
 </head>
 
 <body>
+  <!-- Duffin's Hub Header -->
+  <div class="duffinshubHeader">
+    <!-- Logo and tagline -->
+    <h1 class="duffinshubHeaderLogo"><a href="https://duffin.neocities.org/" id="duffinshubHeaderLogoLink">Duffin's Hub</a></h1>
+    <p class="duffinshubHeaderTagline">for Web-Based-Things</p>
+
+    <!-- Dropdown menu for Local Storage options -->
+    <select onChange="window.location.href=this.value" class="ExpandButton">
+      <option value="">Expand</option>
+      <option value="" class="TitleMenuButton">-----------</option>
+      <option value="" class="TitleMenuButton">~ Local Storage Options ~</option>
+      <option value="" class="TitleMenuButton">-----------</option>
+      <option value="" class="OptionMenuButton">Nothing to see here...</option>
+      <option value="" class="TitleMenuButton">-----------</option>
+    </select>
+  </div>
+
   <!-- Main content container -->
   <div class="container">
     <p>Welcome! Use this as temporary storage.</p>
     <!-- Button to toggle dark mode -->
     <button id="darkModeToggle" title="Switch Appearance">Switch Appearance</button>
+    <!-- Section for storage statistics -->
     <h2>Stats</h2>
     <p>Used Storage: <span id="usedStorage">Calculating...</span></p>
     <p>Total Available Storage: 10 MB (Depends on web browser)</p>
