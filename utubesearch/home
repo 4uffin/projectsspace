@@ -1,13 +1,23 @@
-<!DOCTYPE html>
+<!DOCTYPE html> <!-- Define document type as HTML5 -->
 <html>
 
 <head>
 
+  <!-- Set viewport for responsive design -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Title of the webpage -->
   <title>UTube Search</title>
+
+  <!-- Link to the favicon -->
+  <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/pngimg.com%20-%20youtube_PNG102355.png">
+
+  <!-- Google Custom Search Engine script -->
   <script async src="https://cse.google.com/cse.js?cx=e4eb4811b93e945da"></script>
 
+  <!-- Internal stylesheet -->
   <style>
+    /* Styles for the header */
     .duffinshubHeader {
       background-color: #3498db;
       color: #fff;
@@ -15,17 +25,20 @@
       text-align: center;
     }
 
+    /* Logo styles */
     .duffinshubHeaderLogo {
       font-family: 'Arial', sans-serif;
       margin: 0;
       /* Remove default margin to avoid spacing */
     }
 
+    /* Link styles for the logo */
     #duffinshubHeaderLogoLink {
       color: #ffffff;
       text-decoration: none;
     }
 
+    /* Tagline styles */
     .duffinshubHeaderTagline {
       font-family: 'Arial', sans-serif;
       font-size: 0.8rem;
@@ -34,11 +47,13 @@
       /* Adjust the opacity for a faded look (1 is fully opaque, 0 is fully transparent) */
     }
 
+    /* Default styles for the body */
     body {
       margin: 0;
       padding: 0;
     }
 
+    /* Styles for the header */
     header {
       display: flex;
       flex-direction: horizontal;
@@ -47,6 +62,7 @@
       margin: 0px;
     }
 
+    /* Tagline styles */
     .tagline {
       text-align: left;
       font-family: Verdana;
@@ -54,7 +70,7 @@
       margin-left: 10px;
     }
 
-    /* Header elements */
+    /* Logo styles */
     .logo {
       width: 50px;
       height: auto;
@@ -62,7 +78,7 @@
       margin-right: 20px;
     }
 
-    /*Header buttons*/
+    /* Styles for header buttons */
     .menubuttons {
       font-family: Verdana;
       margin: 30px;
@@ -75,106 +91,111 @@
       border-radius: 5px;
     }
 
-    /* Media query to hide the button on screens with a width of 375 pixels or less (portrait orientation of iPhones) */
+    /* Media query to hide the button on screens with a width of 500 pixels or less */
     @media (max-width: 500px) {
       .SubmitURLButton {
         display: none;
       }
     }
 
+    /* Styles for links */
     .SubmitURLLink {
       color: Black;
       text-decoration: None;
     }
 
+    /* Hover styles for links */
     .SubmitURLLink:hover {
       color: Green;
     }
 
-    /* Media query to hide the button on screens with a width of 375 pixels or less (portrait orientation of iPhones) */
+    /* Media query to hide the button on screens with a width of 500 pixels or less */
     @media (max-width: 500px) {
       .SubmitURLLink {
         display: none;
       }
     }
 
-    /*Header buttons*/
-    /*Dropdown menu*/
+    /* Styles for dropdown menu */
     .MenuButtons {
       margin: 30px;
       margin-left: auto;
     }
 
+    /* Styles for expand button */
     .ExpandButton {
       background: linear-gradient(to bottom, White 0%, LightGrey 50%);
       color: Black;
       border-radius: 5px;
     }
 
+    /* Hover styles for expand button */
     .ExpandButton:hover {
       background: linear-gradient(to bottom, White 0%, LightGrey 20%);
       color: Green;
     }
 
+    /* Styles for title menu button */
     .TitleMenuButton {
       color: Black;
       background-color: White;
       font-family: Verdana;
     }
 
+    /* Styles for option menu button */
     .OptionMenuButton {
       color: Grey;
       background-color: White;
       font-family: Verdana;
     }
 
+    /* Styles for the hub menu button */
     .TheHubMenuButton {
       color: Green;
       background-color: Black;
       font-family: Verdana;
     }
-
-    /*Dropdown menu*/
-    /* Header elements */
   </style>
 
 </head>
 
 <body>
 
+  <!-- Header section -->
   <div class="duffinshubHeader">
-
+    <!-- Logo and tagline -->
     <h1 class="duffinshubHeaderLogo"><a href="https://duffin.neocities.org/" id="duffinshubHeaderLogoLink">Duffin's Hub</a></h1>
     <p class="duffinshubHeaderTagline">for Web-Based-Things</p>
-
+    <!-- Dropdown menu for UTube Search options -->
     <select onChange="window.location.href=this.value" class="ExpandButton">
       <option value="">Expand</option>
       <option value="" class="TitleMenuButton">-----------</option>
       <option value="" class="TitleMenuButton">~ UTube Search Options ~</option>
       <option value="" class="TitleMenuButton">-----------</option>
       <option value="https://forms.gle/cWHu61QDLrszdE2d6" class="OptionMenuButton">Contribute</option>
-      <option value="https://forms.gle/KucJJb5SK7XNsoEz6" class="OptionMenuButton">Open-Source</option>
+      <option value="https://github.com/4uffin/projectsspace/tree/main/utubesearch" class="OptionMenuButton">Open-Source</option>
       <option value="" class="TitleMenuButton">-----------</option>
     </select>
-
   </div>
 
+  <!-- Navigation section -->
   <header>
-
-    <a href="https://duffin.neocities.org/utubesearch/home"> <img src="https://searchforurls.neocities.org/Images/pngimg.com%20-%20youtube_PNG102355.png" class="logo"> </a>
-
+    <!-- Logo -->
+    <a href="https://duffin.neocities.org/utubesearch/home"> <img src="https://duffin.neocities.org/images/pngimg.com%20-%20youtube_PNG102355.png" class="logo"> </a>
+    <!-- Search box -->
     <div class="searchbox-wrapper">
       <div class="gcse-searchbox"></div>
     </div>
-
+    <!-- Menu buttons -->
     <nav class="menubuttons">
       <button class="SubmitURLButton" title="Make the search smarter!"><a href="https://forms.gle/cWHu61QDLrszdE2d6" class="SubmitURLLink">Contribute</a></button>
-      <button class="SubmitURLButton" title="Get a deeper look"><a href="https://drive.google.com/drive/folders/15GigJqKzIKFi0co-pESsh6Ym-DUh8iRV?usp=drive_link" class="SubmitURLLink">Open-Source</a></button>
+      <button class="SubmitURLButton" title="Get a deeper look"><a href="https://github.com/4uffin/projectsspace/tree/main/utubesearch" class="SubmitURLLink">Open-Source</a></button>
     </nav>
-
   </header>
 
+  <!-- Tagline -->
   <p class="tagline">Search for anything on the Tube!</p>
+  <!-- Search results -->
   <div class="gcse-searchresults"></div>
 
 </body>
