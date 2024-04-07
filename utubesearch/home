@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UTube Search</title>
+  <script async src="https://cse.google.com/cse.js?cx=e4eb4811b93e945da"></script>
+
+  <style>
+    .duffinshubHeader {
+      background-color: #3498db;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .duffinshubHeaderLogo {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      /* Remove default margin to avoid spacing */
+    }
+
+    #duffinshubHeaderLogoLink {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .duffinshubHeaderTagline {
+      font-family: 'Arial', sans-serif;
+      font-size: 0.8rem;
+      /* Adjust the font size as needed */
+      opacity: 0.7;
+      /* Adjust the opacity for a faded look (1 is fully opaque, 0 is fully transparent) */
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      flex-direction: horizontal;
+      align-items: center;
+      background: linear-gradient(to bottom, white, grey);
+      margin: 0px;
+    }
+
+    .tagline {
+      text-align: left;
+      font-family: Verdana;
+      color: green;
+      margin-left: 10px;
+    }
+
+    /* Header elements */
+    .logo {
+      width: 50px;
+      height: auto;
+      margin: 10px;
+      margin-right: 20px;
+    }
+
+    /*Header buttons*/
+    .menubuttons {
+      font-family: Verdana;
+      margin: 30px;
+      margin-right: auto;
+    }
+
+    /* Default styles for all screen sizes */
+    .SubmitURLButton {
+      background: linear-gradient(to bottom, White 0%, LightGrey 50%);
+      border-radius: 5px;
+    }
+
+    /* Media query to hide the button on screens with a width of 375 pixels or less (portrait orientation of iPhones) */
+    @media (max-width: 500px) {
+      .SubmitURLButton {
+        display: none;
+      }
+    }
+
+    .SubmitURLLink {
+      color: Black;
+      text-decoration: None;
+    }
+
+    .SubmitURLLink:hover {
+      color: Green;
+    }
+
+    /* Media query to hide the button on screens with a width of 375 pixels or less (portrait orientation of iPhones) */
+    @media (max-width: 500px) {
+      .SubmitURLLink {
+        display: none;
+      }
+    }
+
+    /*Header buttons*/
+    /*Dropdown menu*/
+    .MenuButtons {
+      margin: 30px;
+      margin-left: auto;
+    }
+
+    .ExpandButton {
+      background: linear-gradient(to bottom, White 0%, LightGrey 50%);
+      color: Black;
+      border-radius: 5px;
+    }
+
+    .ExpandButton:hover {
+      background: linear-gradient(to bottom, White 0%, LightGrey 20%);
+      color: Green;
+    }
+
+    .TitleMenuButton {
+      color: Black;
+      background-color: White;
+      font-family: Verdana;
+    }
+
+    .OptionMenuButton {
+      color: Grey;
+      background-color: White;
+      font-family: Verdana;
+    }
+
+    .TheHubMenuButton {
+      color: Green;
+      background-color: Black;
+      font-family: Verdana;
+    }
+
+    /*Dropdown menu*/
+    /* Header elements */
+  </style>
+
+</head>
+
+<body>
+
+  <div class="duffinshubHeader">
+
+    <h1 class="duffinshubHeaderLogo"><a href="https://duffin.neocities.org/" id="duffinshubHeaderLogoLink">Duffin's Hub</a></h1>
+    <p class="duffinshubHeaderTagline">for Web-Based-Things</p>
+
+    <select onChange="window.location.href=this.value" class="ExpandButton">
+      <option value="">Expand</option>
+      <option value="" class="TitleMenuButton">-----------</option>
+      <option value="" class="TitleMenuButton">~ UTube Search Options ~</option>
+      <option value="" class="TitleMenuButton">-----------</option>
+      <option value="https://forms.gle/cWHu61QDLrszdE2d6" class="OptionMenuButton">Contribute</option>
+      <option value="https://forms.gle/KucJJb5SK7XNsoEz6" class="OptionMenuButton">Open-Source</option>
+      <option value="" class="TitleMenuButton">-----------</option>
+    </select>
+
+  </div>
+
+  <header>
+
+    <a href="https://duffin.neocities.org/utubesearch/home"> <img src="https://searchforurls.neocities.org/Images/pngimg.com%20-%20youtube_PNG102355.png" class="logo"> </a>
+
+    <div class="searchbox-wrapper">
+      <div class="gcse-searchbox"></div>
+    </div>
+
+    <nav class="menubuttons">
+      <button class="SubmitURLButton" title="Make the search smarter!"><a href="https://forms.gle/cWHu61QDLrszdE2d6" class="SubmitURLLink">Contribute</a></button>
+      <button class="SubmitURLButton" title="Get a deeper look"><a href="https://drive.google.com/drive/folders/15GigJqKzIKFi0co-pESsh6Ym-DUh8iRV?usp=drive_link" class="SubmitURLLink">Open-Source</a></button>
+    </nav>
+
+  </header>
+
+  <p class="tagline">Search for anything on the Tube!</p>
+  <div class="gcse-searchresults"></div>
+
+</body>
+
+</html>
