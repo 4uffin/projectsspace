@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tib - TinyWeb</title>
+    <link rel="icon" type="image/x-icon" href="https://tinyweb.neocities.org/Images/tiblogo.PNG">
+    
+    <style>
+ 
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: blue;
+}
+
+a:active {
+  text-decoration: underline;
+  color: blue;
+}
+
+body {
+  margin: 0px;
+}
+
+.duffinshubHeader {
+  background-color: #3498db;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+.duffinshubHeaderLogo {
+  font-family: 'Arial', sans-serif;
+  margin: 0; /* Remove default margin to avoid spacing */
+}
+
+#duffinshubHeaderLogoLink {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.duffinshubHeaderTagline {
+  font-family: 'Arial', sans-serif;
+  font-size: 0.8rem; /* Adjust the font size as needed */
+  opacity: 0.7; /* Adjust the opacity for a faded look (1 is fully opaque, 0 is fully transparent) */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, White 0%, LightGrey 50%);
+  margin: 8px;
+  box-shadow: 4px 4px Grey;
+  border-radius: 5px;
+}
+
+#Tiblogolink {
+  color: Black;
+  text-decoration: none;
+}
+
+.MenuButtons {
+  margin: 30px;
+}
+
+.ExpandButton {
+  background: linear-gradient(to bottom, White 0%, LightGrey 50%);
+  color: Black;
+  border-radius: 5px;
+}
+
+.ExpandButton:hover {
+  background: linear-gradient(to bottom, White 0%, LightGrey 20%);
+  color: Green;
+}
+
+.dividerline {
+  text-align: center;
+  background-color: White;
+  padding: 1px;
+  margin: 10px;
+}
+ 
+.Tiblogo {
+  text-align: left;
+  font-family: Verdana;
+  background-color: LightBlue;
+  border-radius: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 30px;
+  margin-right: 10px;
+}
+
+.Tiblogo:hover {
+  cursor: pointer;
+}
+
+.menubuttons {
+  font-family: Verdana;
+  margin: 30px;
+  margin-right: auto;
+}
+
+.SubmitURLButton {
+  background: linear-gradient(to bottom, White 0%, LightGrey 50%);
+  border-radius: 5px;
+}
+
+.SubmitURLButton:hover {
+  background: linear-gradient(to bottom, White 0%, LightGrey 20%);
+}
+
+#SubmitURLLink {
+  color: Black;
+  text-decoration: None;
+}
+
+#SubmitURLLink:hover {
+  color: Green;
+}
+
+.aboutTib {
+  text-align: center;
+  font-family: Verdana;
+  color: Green;
+  background: linear-gradient(to bottom, White 0%, LightGrey 50%);
+  border-radius: 5px;
+  box-shadow: 4px 4px Grey;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 1px;
+  padding-bottom: 2px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.aboutTibDisclaimer {
+  color: Red;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.SearchStats {
+  text-align: left;
+  font-family: Verdana;
+  color: Black;
+}
+
+.AllTimeStatsTitle {
+  text-align: left;
+  font-family: Verdana;
+  color: Black;
+}
+
+.AllTimeStatsDesc {
+  text-align: left;
+  font-family: Verdana;
+}
+
+#statQuery {
+  color: Black;
+  text-decoration: none;
+}
+
+#statQuery:hover {
+  color: Green;
+}
+
+.AllTimeStatsImg {
+  text-align: center;
+}
+
+/* Dropdown Menu Settings */
+
+.SubmitButton {
+  color: Green;
+  background-color: White;
+  font-family: Verdana;
+}
+
+.TitleMenuButton {
+  color: Black;
+  background-color: White;
+  font-family: Verdana;
+}
+
+.OptionMenuButton {
+  color: Grey;
+  background-color: White;
+  font-family: Verdana;
+}
+
+.RewardsMenuButton {
+  color: Gold;
+  background-color: White;
+  font-family: Verdana;
+}
+
+.TheHubMenuButton {
+  color: Green;
+  background-color: Black;
+  font-family: Verdana;
+}
+
+ </style>
+    
+  </head>
+
+  <body style="background-color: Lightblue;">
+    
+    <div class="duffinshubHeader">
+    
+      <h1 class="duffinshubHeaderLogo"><a href="https://duffin.neocities.org/" id="duffinshubHeaderLogoLink">Duffin's Hub</a></h1>
+      <p class="duffinshubHeaderTagline">for Web-Based-Things</p>
+      
+      <select onChange="window.location.href=this.value" class="ExpandButton">
+        <option value="">Expand</option>
+        <option value="" class="TitleMenuButton">-----------</option>
+        <option value="" class="TitleMenuButton">~ Tib (TinyWeb) Options ~</option>
+        <option value="" class="TitleMenuButton">-----------</option>
+        <option value="https://forms.gle/Ydgf31NzDwLL1xnW6" class="OptionMenuButton">Submit URL!</option>
+        <option value="https://forms.gle/KucJJb5SK7XNsoEz6" class="OptionMenuButton">Give Feedback</option>
+        <option value="https://drive.google.com/drive/folders/1y6eTrQEPHqUT1NB2YhXauztCzvb2-zGX?usp=sharing" class="OptionMenuButton">Open-Source</option>
+        <option value="" class="TitleMenuButton">-----------</option>
+      </select>
+    
+    </div>
+    
+    <div class="header">
+    
+    <h1 class="Tiblogo"><a href="https://duffin.neocities.org/tinyweb/home" id="Tiblogolink">Tib</a></h1>
+    
+    <nav class="menubuttons">
+      <button class="SubmitURLButton" title="Join the community!"><a href="https://forms.gle/dDxZ8R7uJf126R6c6" id="SubmitURLLink">Submit URL!</a></button>
+      <button class="SubmitURLButton" title="I want to hear from you :)"><a href="https://forms.gle/KucJJb5SK7XNsoEz6" id="SubmitURLLink">Give Feedback</a></button>
+      <button class="SubmitURLButton" title="Learn more about Tib"><a href="https://drive.google.com/drive/folders/1y6eTrQEPHqUT1NB2YhXauztCzvb2-zGX?usp=sharing" id="SubmitURLLink">Open-Source</a></button>
+    </nav>
+    
+    </div>
+    
+    <div class="aboutTib">
+      <h2>How to use Tib</h2>
+      <p>Search your interests, and find user submitted URL's that match that search!</p>
+      <p><font color="Red">NOTE: Do not submit URL's that may contain personal information!</font></p>
+    </div>
+    
+    <p class="SearchStats">Safe Search: <font color="Green">Off</font> | URLs submitted: <font color="Green">316</font></p>
+  
+    <script async src="https://cse.google.com/cse.js?cx=b658bf6888ab743b0">
+    </script>
+    <div class="gcse-search"></div>
+    
+    <div class="statsTib">
+      <h2 class="AllTimeStatsTitle">Most Searched:</h2>
+        <p class="AllTimeStatsDesc"><a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=youtube" id="statQuery">1. youtube</a></p>
+        <p class="AllTimeStatsDesc"><a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=twitter" id="statQuery">2. twitter</a></p>
+        <p class="AllTimeStatsDesc"><a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=reddit%20apollo%20api" id="statQuery">3. reddit apollo api</a></p>
+    </div>
+    
+  </body>
+
+</html>
