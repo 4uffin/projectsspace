@@ -1,0 +1,284 @@
+<!DOCTYPE html> <!-- Define document type as HTML5 -->
+<html lang="en">
+<!-- Set language to English -->
+
+<head>
+
+  <!-- Character encoding for special characters -->
+  <meta charset="UTF-8">
+
+  <!-- Set viewport for responsive design -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Link to the favicon -->
+  <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/duffinshubfavicon.png">
+
+  <!-- Title of the webpage -->
+  <title>Duffin's Hub</title>
+
+  <!-- Internal stylesheet -->
+  <style>
+    /* Styles for the body */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* Ensure the body takes up at least the full height of the viewport */
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    /* Styles for the header */
+    header {
+      background-color: #3498db;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    /* Styles for header h1 */
+    header h1 {
+      margin: 0;
+      /* Remove default margin to avoid spacing */
+    }
+
+    /* Styles for header p */
+    header p {
+      font-size: 0.8rem;
+      /* Adjust the font size as needed */
+      opacity: 0.7;
+      /* Adjust the opacity for a faded look (1 is fully opaque, 0 is fully transparent) */
+    }
+
+    /* Styles for the navigation */
+    nav {
+      display: flex;
+      margin: 20px;
+    }
+
+    /* Styles for navigation ul */
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: auto;
+      /* Add this line */
+    }
+
+    /* Styles for navigation li */
+    nav li {
+      margin-right: 16px;
+    }
+
+    /* Styles for menu item one */
+    #menuitem {
+      color: #ffffff;
+      text-decoration: None;
+    }
+
+    /* Hover styles for menu item one */
+    #menuitem:hover {
+      font-weight: bold;
+    }
+
+    /* Styles for the main content */
+    main {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Styles for individual projects */
+    .project {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Styles for project covers */
+    .project-cover {
+      width: 100%;
+      /* Ensure the image takes the full width of its container */
+      height: 300px;
+      /* Set the desired height for the cover art */
+      object-fit: cover;
+      /* Maintain aspect ratio and cover the entire container */
+      transition: transform 0.3s ease-in-out;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Hover styles for project covers */
+    .project-cover:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+      /* Adjust the scale factor based on your preference */
+    }
+
+    /* Styles for project descriptions */
+    .project-description {
+      margin-bottom: 1rem;
+    }
+
+    /* Styles for the created line */
+    .created-line {
+      font-size: 0.8rem;
+      /* Adjust the font size as needed */
+    }
+
+    /* Styles for the footer */
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: auto;
+      /* Push the footer to the bottom of the viewport */
+    }
+
+    /* Media query for responsive design */
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Header section -->
+  <header>
+    <!-- Title and tagline -->
+    <h1>Duffin's Hub</h1>
+    <p>for Web-Based-Things</p>
+    
+    <!-- Navigation section -->
+<nav>
+  <!-- List of menu items -->
+  <ul>
+    <li><a href="https://codepen.io/4uffin" id="menuitem">Codepen</a></li>
+    <li><a href="https://github.com/4uffin/projectsspace" id="menuitem">GitHub</a></li>
+  </ul>
+</nav>
+    
+  </header>
+
+  <!-- Main content section -->
+  <main>
+
+    <!-- Project 1 section -->
+    <section class="project">
+      <!-- Cover art for Project 1 -->
+      <a href="https://duffin.neocities.org/localstorage/new"><img src="https://duffin.neocities.org/images/foldericon.png" alt="Local Storage Cover Art" title="Local Storage" class="project-cover"></a>
+      <!-- Title for Project 1 -->
+      <h2 title="Local Storage">Local Storage</h2>
+      <!-- Description for Project 1 -->
+      <p class="project-description">Use your browser's local storage with some simple HTML/CSS UI. Use this as temporary storage.</p>
+      <!-- Created line for Project 1 -->
+      <p class="created-line" title="Created: August 29, 2023">Created: August 29, 2023</p>
+    </section>
+
+    <!-- Project 2 section -->
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project 2 -->
+      <img src="https://duffin.neocities.org/images/painticon1.png" alt="Paint Cover Art" title="Paint" class="project-cover">
+      <!-- Title for Project 2 -->
+      <h2 title="Paint">Paint</h2>
+      <!-- Description for Project 2 -->
+      <p class="project-description">I was bored and curious. So here's a canvas to paint on!</p>
+      <!-- Created line for Project 2 -->
+      <p class="created-line" title="Created: August 5, 2023">Created: August 5, 2023</p>
+    </section>
+
+    <!-- Project 3 section -->
+    <section class="project">
+      <!-- Cover art for Project 3 -->
+      <a href="https://duffin.neocities.org/utubesearch/home"><img src="https://duffin.neocities.org/images/utubesearchicon.png" alt="UTube Search Cover Art" title="UTube Search" class="project-cover"></a>
+      <!-- Title for Project 3 -->
+      <h2 title="UTube Search">UTube Search</h2>
+      <!-- Description for Project 3 -->
+      <p class="project-description">I, along with many, don't like YouTube's built-in search. So here's a dedicated search engine for YouTube. (powered by GCSE)</p>
+      <!-- Created line for Project 3 -->
+      <p class="created-line" title="Created: August 3, 2023">Created: August 3, 2023</p>
+    </section>
+
+    <!-- Project 4 section -->
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project 4 -->
+      <img src="https://duffin.neocities.org/images/randomutubeicon1.png" alt="Random UTube Cover Art" title="Random UTube" class="project-cover">
+      <!-- Title for Project 4 -->
+      <h2 title="Random UTube">Random UTube</h2>
+      <!-- Description for Project 4 -->
+      <p class="project-description">YouTube, but randomized. Basically less control than YouTube Shorts.</p>
+      <!-- Created line for Project 4 -->
+      <p class="created-line" title="Created: May 9, 2023">Created: May 9, 2023</p>
+    </section>
+
+    <!-- Project 5 section -->
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project 5 -->
+      <img src="https://duffin.neocities.org/images/sandboxmodeicon.png" alt="Sandbox Mode Cover Art" title="Sandbox Mode" class="project-cover">
+      <!-- Title for Project 5 -->
+      <h2 title="Sandbox Mode">Sandbox Mode</h2>
+      <!-- Description for Project 5 -->
+      <p class="project-description">A webpage creation sandbox, master your web development skills! | Your imagination is your limitation. (i think)</p>
+      <!-- Created line for Project 5 -->
+      <p class="created-line" title="Created: May 4, 2023">Created: May 4, 2023</p>
+    </section>
+
+    <!-- Project 6 section -->
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project 6 -->
+      <img src="https://duffin.neocities.org/images/thebuttonicon2.png" alt="The Button Cover Art" title="The Button" class="project-cover">
+      <!-- Title for Project 6 -->
+      <h2 title="The Button">The Button</h2>
+      <!-- Description for Project 6 -->
+      <p class="project-description">Literally just a button, click it if you want to.</p>
+      <!-- Created line for Project 6 -->
+      <p class="created-line" title="Created: October 1, 2022">Created: October 1, 2022</p>
+    </section>
+
+    <!-- Project 7 section -->
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project 7 -->
+      <img src="https://duffin.neocities.org/images/searchurlicon.png" alt="Search URL Cover Art" title="Search URL" class="project-cover">
+      <!-- Title for Project 7 -->
+      <h2 title="Search URL">Search URL</h2>
+      <!-- Description for Project 7 -->
+      <p class="project-description">An old style search engine. (powered by GCSE)</p>
+      <!-- Created line for Project 7 -->
+      <p class="created-line" title="Created: September 8, 2022">Created: September 8, 2022</p>
+    </section>
+
+    <!-- Project 8 section -->
+    <section class="project">
+      <!-- Cover art for Project 8 -->
+      <a href="https://duffin.neocities.org/tinyweb/home"><img src="https://duffin.neocities.org/images/tiblogo[1].PNG" alt="Tib (TinyWeb) Cover Art" title="Tib (TinyWeb)" class="project-cover"></a>
+      <!-- Title for Project 8 -->
+      <h2 title="Tib (TinyWeb)">Tib (TinyWeb)</h2>
+      <!-- Description for Project 8 -->
+      <p class="project-description">A search engine powered by its users. Submit URL's to make the search smarter. (powered by GCSE)</p>
+      <!-- Created line for Project 8 -->
+      <p class="created-line" title="Created: March 3, 2022">Created: March 3, 2022</p>
+    </section>
+
+    <!-- Add more project sections as needed -->
+
+  </main>
+
+  <!-- Footer section -->
+  <footer>
+    <!-- Copyright information -->
+    <p>2024 Duffin's Hub. Hosted via <a href="https://neocities.org/site/duffin" style="color: #fff; text-decoration: None;">Neocities.org</a></p>
+  </footer>
+
+</body>
+
+</html>
