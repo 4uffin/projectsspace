@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta tags for character set and viewport -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Webpage favicon -->
+  <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/Clock.png">
+  <!-- Title of the page -->
+  <title>Simple Customizable Clock</title>
+  <!-- CSS styles for clock and its options -->
+  <style>
+    /* CSS for body and HTML elements */
+    body,
+    html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* CSS for body element */
+    body {
+      background-color: #f0f0f0;
+      /* Light gray background for Default style */
+      font-family: Arial, sans-serif;
+      /* Default font for Default style */
+      color: #333;
+      /* Dark gray text for Default style */
+    }
+
+    /* CSS for container element */
+    .container {
+      text-align: center;
+    }
+
+    /* CSS for clock element */
+    .clock {
+      font-size: 3em;
+    }
+
+    /* CSS for options and clocks-dropdown elements */
+    .options,
+    .clocks-dropdown {
+      margin-top: 20px;
+    }
+
+    /* CSS for select elements */
+    select {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      /* Light gray border */
+      background-color: #fff;
+      /* White background */
+      font-family: Arial, sans-serif;
+      /* Default font for Default style */
+      margin-left: 5px;
+      /* Add a small margin */
+    }
+
+    /* CSS for label elements */
+    label {
+      font-weight: bold;
+      /* Make labels bold */
+      margin-right: 5px;
+      /* Add a small margin to the right of labels */
+    }
+
+    /* CSS for dark-mode style */
+    .dark-mode {
+      background-color: #222;
+      /* Dark Grey background for Dark-mode style */
+      color: #ddd;
+      /* White text for Dark-mode style */
+    }
+
+    /* CSS for terminal style */
+    .terminal {
+      background-color: #000;
+      /* Black background for Terminal style */
+      color: #0f0;
+      /* Green text for Terminal style */
+    }
+
+    /* CSS for terminal clock */
+    .terminal .clock {
+      font-family: Courier New, Courier, monospace;
+      /* Terminal font for clock */
+    }
+
+    /* CSS for terminal select */
+    .terminal select {
+      background-color: #000;
+      /* Black background for Terminal style */
+      color: #0f0;
+      /* Green text for Terminal style */
+      font-family: Courier New, Courier, monospace;
+      /* Terminal font for select */
+    }
+
+    /* CSS for terminal label */
+    .terminal label {
+      color: #0f0;
+      /* Green text for Terminal style */
+      font-family: Courier New, Courier, monospace;
+      /* Terminal font for label */
+    }
+
+    /* CSS for retro style */
+    .retro {
+      background-color: #ffcc00;
+      /* Yellow background for Retro style */
+      color: #ff00ff;
+      /* Purple text for Retro style */
+      font-family: 'Arial Black', Arial, sans-serif;
+      /* Bold font for Retro style */
+      text-shadow: 1px 1px 0px #0f0;
+      /* Green outline for Retro style */
+    }
+
+    /* CSS for retro select */
+    .retro select {
+      background-color: #ffcc00;
+      /* Yellow background for Retro style */
+      color: #ff00ff;
+      /* Purple text for Retro style */
+      font-family: 'Arial Black', Arial, sans-serif;
+      /* Bold font for Retro style */
+      text-shadow: 1px 1px 0px #0f0;
+      /* Green outline for Retro style */
+    }
+
+    /* CSS for retro label */
+    .retro label {
+      color: #ff00ff;
+      /* Purple text for Retro style */
+      text-shadow: 1px 1px 0px #0f0;
+      /* Green outline for Retro style */
+    }
+
+    /* CSS for futuristic style */
+    .futuristic {
+      background-color: #111;
+      /* Dark background for Futuristic style */
+      color: #0f0;
+      /* Green text for Futuristic style */
+      font-family: 'Roboto', sans-serif;
+      /* Modern font for Futuristic style */
+      text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #0f0, 0 0 20px #0f0, 0 0 25px #0f0;
+      /* Futuristic text effect */
+    }
+
+    /* CSS for futuristic select */
+    .futuristic select {
+      background-color: #111;
+      /* Dark background for Futuristic style */
+      color: #0f0;
+      /* Green text for Futuristic style */
+      font-family: 'Roboto', sans-serif;
+      /* Modern font for Futuristic style */
+    }
+
+    /* CSS for futuristic label */
+    .futuristic label {
+      color: #0f0;
+      /* Green text for Futuristic style */
+      font-family: 'Roboto', sans-serif;
+      /* Modern font for Futuristic style */
+    }
+
+    /* CSS for nature style */
+    .nature {
+      background-color: #8db580;
+      /* Light green background for Nature style */
+      color: #3d6b37;
+      /* Dark green text for Nature style */
+      font-family: 'Times New Roman', Times, serif;
+      /* Serif font for Nature style */
+    }
+
+    /* CSS for nature select */
+    .nature select {
+      background-color: #8db580;
+      /* Light green background for Nature style */
+      color: #3d6b37;
+      /* Dark green text for Nature style */
+      font-family: 'Times New Roman', Times, serif;
+      /* Serif font for Nature style */
+    }
+
+    /* CSS for nature label */
+    .nature label {
+      color: #3d6b37;
+      /* Dark green text for Nature style */
+      font-family: 'Times New Roman', Times, serif;
+      /* Serif font for Nature style */
+    }
+
+    /* CSS for industrial style */
+    .industrial {
+      background-color: #333;
+      /* Dark gray background for Industrial style */
+      color: #ccc;
+      /* Light gray text for Industrial style */
+      font-family: 'Arial Narrow', Arial, sans-serif;
+      /* Narrow font for Industrial style */
+    }
+
+    /* CSS for industrial select */
+    .industrial select {
+      background-color: #333;
+      /* Dark gray background for Industrial style */
+      color: #ccc;
+      /* Light gray text for Industrial style */
+      font-family: 'Arial Narrow', Arial, sans-serif;
+      /* Narrow font for Industrial style */
+    }
+
+    /* CSS for industrial label */
+    .industrial label {
+      color: #ccc;
+      /* Light gray text for Industrial style */
+      font-family: 'Arial Narrow', Arial, sans-serif;
+      /* Narrow font for Industrial style */
+    }
+
+    /* CSS for gothic style */
+    .gothic {
+      background-color: #000;
+      /* Black background for Gothic style */
+      color: #fff;
+      /* White text for Gothic style */
+      font-family: 'Old English Text MT', serif;
+      /* Gothic font for Gothic style */
+    }
+
+    /* CSS for gothic select */
+    .gothic select {
+      background-color: #000;
+      /* Black background for Gothic style */
+      color: #fff;
+      /* White text for Gothic style */
+      font-family: 'Old English Text MT', serif;
+      /* Gothic font for Gothic style */
+    }
+
+    /* CSS for gothic label */
+    .gothic label {
+      color: #fff;
+      /* White text for Gothic style */
+      font-family: 'Old English Text MT', serif;
+      /* Gothic font for Gothic style */
+    }
+
+    /* CSS for art deco style */
+    .art-deco {
+      background-color: #000;
+      /* Black background for Art Deco style */
+      color: #fff;
+      /* White text for Art Deco style */
+      font-family: 'Bauhaus 93', sans-serif;
+      /* Art Deco font for Art Deco style */
+    }
+
+    /* CSS for art deco select */
+    .art-deco select {
+      background-color: #000;
+      /* Black background for Art Deco style */
+      color: #fff;
+      /* White text for Art Deco style */
+      font-family: 'Bauhaus 93', sans-serif;
+      /* Art Deco font for Art Deco style */
+    }
+
+    /* CSS for art deco label */
+    .art-deco label {
+      color: #fff;
+      /* White text for Art Deco style */
+      font-family: 'Bauhaus 93', sans-serif;
+      /* Art Deco font for Art Deco style */
+    }
+
+    /* CSS for steampunk style */
+    .steampunk {
+      background-color: #2b2b2b;
+      /* Dark gray background for Steampunk style */
+      color: #d4af37;
+      /* Gold text for Steampunk style */
+      font-family: 'Old Standard TT', serif;
+      /* Old-fashioned font for Steampunk style */
+    }
+
+    /* CSS for steampunk select */
+    .steampunk select {
+      background-color: #2b2b2b;
+      /* Dark gray background for Steampunk style */
+      color: #d4af37;
+      /* Gold text for Steampunk style */
+      font-family: 'Old Standard TT', serif;
+      /* Old-fashioned font for Steampunk style */
+    }
+
+    /* CSS for steampunk label */
+    .steampunk label {
+      color: #d4af37;
+      /* Gold text for Steampunk style */
+      font-family: 'Old Standard TT', serif;
+      /* Old-fashioned font for Steampunk style */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Clock display -->
+    <div id="clock" class="clock"></div>
+    <!-- Options for AM/PM display -->
+    <div class="options">
+      <label for="ampm">AM/PM:</label>
+      <select id="ampm">
+        <option value="show">Show</option>
+        <option value="hide">Hide</option>
+      </select>
+    </div>
+    <!-- Options for showing or hiding seconds -->
+    <div class="options">
+      <label for="show-seconds">Seconds:</label>
+      <select id="show-seconds">
+        <option value="show">Show</option>
+        <option value="hide">Hide</option>
+      </select>
+    </div>
+    <!-- Options for selecting time format (12 or 24 hour) -->
+    <div class="options">
+      <label for="format">Format:</label>
+      <select id="format">
+        <option value="12">12 Hour</option>
+        <option value="24">24 Hour</option>
+      </select>
+    </div>
+    <!-- Dropdown for selecting clock style -->
+    <div class="clocks-dropdown">
+      <label for="clock-style">Clocks:</label>
+      <select id="clock-style">
+        <option value="default">Default</option> <!-- Default style option -->
+        <option value="dark-mode">Dark Mode</option> <!-- Dark mode style option -->
+        <option value="terminal">Terminal</option> <!-- Terminal style option -->
+        <option value="retro">Retro</option> <!-- Retro style option -->
+        <option value="futuristic">Futuristic</option> <!-- Futuristic style option -->
+        <option value="nature">Nature</option> <!-- Nature style option -->
+        <option value="industrial">Industrial</option> <!-- Industrial style option -->
+        <option value="gothic">Gothic</option> <!-- Gothic style option -->
+        <option value="art-deco">Art Deco</option> <!-- Art Deco style option -->
+        <option value="steampunk">Steampunk</option> <!-- Steampunk style option -->
+      </select>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get references to HTML elements
+      const clockElement = document.getElementById('clock');
+      const formatSelect = document.getElementById('format');
+      const clockStyleSelect = document.getElementById('clock-style');
+      const showSecondsSelect = document.getElementById('show-seconds');
+      const ampmSelect = document.getElementById('ampm');
+      // Function to update the clock display
+      function updateClock() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        let seconds = now.getSeconds();
+        const format = formatSelect.value === '12' ? 12 : 24;
+        let timeString = '';
+        if (format === 12) {
+          hours = hours % 12 || 12;
+          let ampm = hours >= 12 ? 'AM' : 'PM'; // Determine AM/PM based on hours
+          timeString += `${hours}:${String(minutes).padStart(2, '0')}`;
+          if (showSecondsSelect.value === 'show') {
+            timeString += `:${String(seconds).padStart(2, '0')}`;
+          }
+          if (ampmSelect.value === 'show') {
+            timeString += ` ${ampm}`;
+          }
+        } else {
+          timeString += `${hours}:${String(minutes).padStart(2, '0')}`;
+          if (showSecondsSelect.value === 'show') {
+            timeString += `:${String(seconds).padStart(2, '0')}`;
+          }
+        }
+        clockElement.textContent = timeString;
+      }
+      // Add event listener for clock style change
+      clockStyleSelect.addEventListener('change', function() {
+        const selectedStyle = clockStyleSelect.value;
+        if (selectedStyle === 'default') {
+          // Apply Default style
+          document.body.classList.remove('terminal', 'retro', 'futuristic', 'nature', 'industrial', 'gothic', 'art-deco', 'steampunk', 'dark-mode'); // Remove dark mode class
+        } else if (selectedStyle === 'terminal') {
+          // Apply Terminal style
+          document.body.classList.remove('retro', 'futuristic', 'nature', 'industrial', 'gothic', 'art-deco', 'steampunk', 'dark-mode'); // Remove dark mode class
+          document.body.classList.add('terminal');
+        } else if (selectedStyle === 'retro') {
+          // Apply Retro style
+          document.body.classList.remove('terminal', 'futuristic', 'nature', 'industrial', 'gothic', 'art-deco', 'steampunk', 'dark-mode'); // Remove dark mode class
+          document.body.classList.add('retro');
+        } else if (selectedStyle === 'futuristic') {
+          // Apply Futuristic style
+          document.body.classList.remove('terminal', 'retro', 'nature', 'industrial', 'gothic', 'art-deco', 'steampunk', 'dark-mode'); // Remove dark mode class
+          document.body.classList.add('futuristic');
+        } else if (selectedStyle === 'nature') {
+          // Apply Nature style
+          document.body.classList.remove('terminal', 'retro', 'futuristic', 'industrial', 'gothic', 'art-deco', 'steampunk', 'dark-mode'); // Remove dark mode class
+          document.body.classList.add('nature');
+        } else if (selectedStyle === 'industrial') {
+          // Apply Industrial style
+          document.body.classList.remove('terminal', 'retro', 'futuristic', 'nature', 'gothic', 'art-deco', 'steampunk', 'dark-mode'); // Remove dark mode class
+          document.body.classList.add('industrial');
+        } else if (selectedStyle === 'gothic') {
+          // Apply Gothic style
+          document.body.classList.remove('terminal', 'retro', 'futuristic', 'nature', 'industrial', 'art-deco', 'steampunk', 'dark-mode'); // Remove dark mode class
+          document.body.classList.add('gothic');
+        } else if (selectedStyle === 'art-deco') {
+          // Apply Art Deco style
+          document.body.classList.remove('terminal', 'retro', 'futuristic', 'nature', 'industrial', 'gothic', 'steampunk', 'dark-mode'); // Remove dark mode class
+          document.body.classList.add('art-deco');
+        } else if (selectedStyle === 'steampunk') {
+          // Apply Steampunk style
+          document.body.classList.remove('terminal', 'retro', 'futuristic', 'nature', 'industrial', 'gothic', 'art-deco', 'dark-mode'); // Remove dark mode class
+          document.body.classList.add('steampunk');
+        } else if (selectedStyle === 'dark-mode') {
+          // Apply Dark Mode style
+          document.body.classList.remove('terminal', 'retro', 'futuristic', 'nature', 'industrial', 'gothic', 'art-deco', 'steampunk'); // Remove other styles
+          document.body.classList.add('dark-mode'); // Add dark mode class
+        }
+      });
+      // Set interval to update the clock every second
+      setInterval(updateClock, 1000);
+      // Add event listeners for format, seconds visibility, and AM/PM visibility change
+      formatSelect.addEventListener('change', updateClock);
+      showSecondsSelect.addEventListener('change', updateClock);
+      ampmSelect.addEventListener('change', updateClock);
+      // Initial clock update
+      updateClock();
+    });
+  </script>
+
+</body>
+
+</html>
