@@ -9,3 +9,7 @@ Tib is an open-source web project aimed at providing users with a platform to se
 - **Open-Source**: The project is open-source, encouraging collaboration and contribution from the community to enhance its features and functionality.
 - **Search Statistics**: Users can view search statistics, including the number of URLs submitted and the current status of safe search settings.
 - **Customizable Interface**: Tib offers a customizable interface with options to expand and navigate through menu buttons conveniently.
+
+# Use it now
+
+[Visit](https://duffin.neocities.org/tinyweb/home) | Hosted via [Neocities.org](https://neocities.org/site/duffin)
