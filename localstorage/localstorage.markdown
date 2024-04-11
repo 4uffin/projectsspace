@@ -22,7 +22,3 @@ The Local Storage Web Application is a browser-based solution designed to provid
 - Convenient Previewing: Users can preview various file types directly within the browser, eliminating the need for external applications.
 - Offline Access: Since files are stored locally, users can access them even when offline, making it suitable for travel or areas with limited connectivity.
 - Educational Use: Students and educators can use the application for sharing study materials, assignments, and lecture notes within a classroom or study group setting.
-
-A [Pen](https://codepen.io/4uffin/pen/XWQMrZW) by [Duffin](https://codepen.io/4uffin) on [CodePen](https://codepen.io).
-
-[License](https://codepen.io/license/pen/XWQMrZW).
