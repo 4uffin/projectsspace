@@ -19,3 +19,7 @@ The Simple Customizable Clock is a user-friendly web application that offers a s
 - **Art Deco:** Elegant and glamorous design reminiscent of the Art Deco era, featuring black background, white text, and a stylized Bauhaus font.
 
 - **Steampunk:** Vintage and eclectic style inspired by Victorian-era machinery, with a dark gray background, gold text, and an Old Standard font.
+
+# Use it now
+
+[Visit](https://duffin.neocities.org/clock/home) | Hosted via [Neocities.org](https://neocities.org/site/duffin)
