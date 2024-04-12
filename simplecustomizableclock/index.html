@@ -362,36 +362,31 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Get references to HTML elements
-      const clockElement = document.getElementById('clock');
-      const formatSelect = document.getElementById('format');
-      const clockStyleSelect = document.getElementById('clock-style');
-      const showSecondsSelect = document.getElementById('show-seconds');
-      const ampmSelect = document.getElementById('ampm');
+      const clockElement = document.getElementById('clock'); // Reference to the clock element
+      const formatSelect = document.getElementById('format'); // Reference to the format selection element
+      const clockStyleSelect = document.getElementById('clock-style'); // Reference to the clock style selection element
+      const showSecondsSelect = document.getElementById('show-seconds'); // Reference to the show seconds selection element
+      const ampmSelect = document.getElementById('ampm'); // Reference to the AM/PM selection element
       // Function to update the clock display
       function updateClock() {
-        const now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        let seconds = now.getSeconds();
-        const format = formatSelect.value === '12' ? 12 : 24;
-        let timeString = '';
-        if (format === 12) {
-          hours = hours % 12 || 12;
-          let ampm = hours >= 12 ? 'AM' : 'PM'; // Determine AM/PM based on hours
-          timeString += `${hours}:${String(minutes).padStart(2, '0')}`;
-          if (showSecondsSelect.value === 'show') {
-            timeString += `:${String(seconds).padStart(2, '0')}`;
-          }
-          if (ampmSelect.value === 'show') {
-            timeString += ` ${ampm}`;
-          }
-        } else {
-          timeString += `${hours}:${String(minutes).padStart(2, '0')}`;
-          if (showSecondsSelect.value === 'show') {
-            timeString += `:${String(seconds).padStart(2, '0')}`;
-          }
+        const now = new Date(); // Current date and time
+        let options = {
+          hour: 'numeric',
+          minute: '2-digit',
+          second: '2-digit' // Always include seconds
+        };
+        // Check if seconds should be shown
+        if (showSecondsSelect.value === 'hide') {
+          options.second = undefined; // Hide seconds if needed
         }
-        clockElement.textContent = timeString;
+        // Check if format is 12-hour or 24-hour
+        if (formatSelect.value === '12' && ampmSelect.value !== 'hide') {
+          options.hour12 = true;
+        } else {
+          options.hour12 = false;
+        }
+        const timeString = now.toLocaleTimeString([], options).replace(/^0/, ''); // Remove leading zero
+        clockElement.textContent = timeString; // Update the clock display with the formatted time
       }
       // Add event listener for clock style change
       clockStyleSelect.addEventListener('change', function() {
@@ -443,8 +438,6 @@
       formatSelect.addEventListener('change', updateClock);
       showSecondsSelect.addEventListener('change', updateClock);
       ampmSelect.addEventListener('change', updateClock);
-      // Initial clock update
-      updateClock();
     });
   </script>
 
