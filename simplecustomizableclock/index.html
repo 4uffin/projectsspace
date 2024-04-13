@@ -405,52 +405,52 @@
 </head>
 
 <body>
-  <div class="container">
+  <div class="container" role="application" aria-label="Clock Settings">
     <!-- Clock display -->
-    <div id="clock" class="clock"></div>
+    <div id="clock" class="clock" aria-live="polite"></div>
     <!-- Options for AM/PM display -->
     <div class="options">
       <label for="ampm">AM/PM:</label>
-      <select id="ampm">
-        <option value="show">Show</option>
-        <option value="hide">Hide</option>
+      <select id="ampm" aria-label="AM/PM">
+        <option value="show" title="Show">Show</option>
+        <option value="hide" title="Hide">Hide</option>
       </select>
     </div>
     <!-- Options for showing or hiding seconds -->
     <div class="options">
       <label for="show-seconds">Seconds:</label>
-      <select id="show-seconds">
-        <option value="show">Show</option>
-        <option value="hide">Hide</option>
+      <select id="show-seconds" aria-label="Show or Hide Seconds">
+        <option value="show" title="Show">Show</option>
+        <option value="hide" title="Hide">Hide</option>
       </select>
     </div>
     <!-- Options for selecting time format (12 or 24 hour) -->
     <div class="options">
       <label for="format">Format:</label>
-      <select id="format">
-        <option value="12">12 Hour</option>
-        <option value="24">24 Hour</option>
+      <select id="format" aria-label="Time Format">
+        <option value="12" title="12 Hour">12 Hour</option>
+        <option value="24" title="24 Hour">24 Hour</option>
       </select>
     </div>
     <!-- Dropdown for selecting clock style -->
     <div class="clocks-dropdown">
       <label for="clock-style">Clocks:</label>
-      <select id="clock-style">
-        <option value="default">Default</option> <!-- Default style option -->
-        <option value="dark-mode">Dark Mode</option> <!-- Dark mode style option -->
-        <option value="terminal">Terminal</option> <!-- Terminal style option -->
-        <option value="retro">Retro</option> <!-- Retro style option -->
-        <option value="futuristic">Futuristic</option> <!-- Futuristic style option -->
-        <option value="nature">Nature</option> <!-- Nature style option -->
-        <option value="industrial">Industrial</option> <!-- Industrial style option -->
-        <option value="gothic">Gothic</option> <!-- Gothic style option -->
-        <option value="art-deco">Art Deco</option> <!-- Art Deco style option -->
-        <option value="steampunk">Steampunk</option> <!-- Steampunk style option -->
+      <select id="clock-style" aria-label="Clock Styles">
+        <option value="default" title="Default">Default</option> <!-- Default style option -->
+        <option value="dark-mode" title="Dark Mode">Dark Mode</option> <!-- Dark mode style option -->
+        <option value="terminal" title="Terminal">Terminal</option> <!-- Terminal style option -->
+        <option value="retro" title="Retro">Retro</option> <!-- Retro style option -->
+        <option value="futuristic" title="Futuristic">Futuristic</option> <!-- Futuristic style option -->
+        <option value="nature" title="Nature">Nature</option> <!-- Nature style option -->
+        <option value="industrial" title="Industrial">Industrial</option> <!-- Industrial style option -->
+        <option value="gothic" title="Gothic">Gothic</option> <!-- Gothic style option -->
+        <option value="art-deco" title="Art Deco">Art Deco</option> <!-- Art Deco style option -->
+        <option value="steampunk" title="Steampunk">Steampunk</option> <!-- Steampunk style option -->
       </select>
     </div>
 
     <!-- Button to toggle visibility -->
-    <button id="toggleButton">Hide</button>
+    <button id="toggleButton" title="Hide" aria-label="Toggle Visibility">Hide</button>
   </div>
 
   <script>
@@ -493,8 +493,10 @@
         const buttonText = toggleButton.textContent;
         if (buttonText === 'Hide') {
           toggleButton.textContent = 'Show';
+          toggleButton.title = 'Show'; // Update title attribute
         } else {
           toggleButton.textContent = 'Hide';
+          toggleButton.title = 'Hide'; // Update title attribute
         }
       }
       // Add event listener to toggle button
