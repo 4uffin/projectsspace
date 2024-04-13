@@ -47,6 +47,23 @@
       margin-top: 20px;
     }
 
+    /* CSS for hiding elements */
+    .hidden {
+      display: none;
+    }
+
+    #toggleButton {
+      margin-top: 20px;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      /* Light gray border */
+      background-color: #fff;
+      /* White background */
+      font-family: Arial, sans-serif;
+      /* Default font for Default style */
+    }
+
     /* CSS for select elements */
     select {
       padding: 5px;
@@ -109,6 +126,15 @@
       /* Terminal font for label */
     }
 
+    .terminal #toggleButton {
+      background-color: #000;
+      /* Black background for Terminal style */
+      color: #0f0;
+      /* Green text for Terminal style */
+      font-family: Courier New, Courier, monospace;
+      /* Terminal font for select */
+    }
+
     /* CSS for retro style */
     .retro {
       background-color: #ffcc00;
@@ -137,6 +163,17 @@
     .retro label {
       color: #ff00ff;
       /* Purple text for Retro style */
+      text-shadow: 1px 1px 0px #0f0;
+      /* Green outline for Retro style */
+    }
+
+    .retro #toggleButton {
+      background-color: #ffcc00;
+      /* Yellow background for Retro style */
+      color: #ff00ff;
+      /* Purple text for Retro style */
+      font-family: 'Arial Black', Arial, sans-serif;
+      /* Bold font for Retro style */
       text-shadow: 1px 1px 0px #0f0;
       /* Green outline for Retro style */
     }
@@ -171,6 +208,15 @@
       /* Modern font for Futuristic style */
     }
 
+    .futuristic #toggleButton {
+      background-color: #111;
+      /* Dark background for Futuristic style */
+      color: #0f0;
+      /* Green text for Futuristic style */
+      font-family: 'Roboto', sans-serif;
+      /* Modern font for Futuristic style */
+    }
+
     /* CSS for nature style */
     .nature {
       background-color: #8db580;
@@ -193,6 +239,15 @@
 
     /* CSS for nature label */
     .nature label {
+      color: #3d6b37;
+      /* Dark green text for Nature style */
+      font-family: 'Times New Roman', Times, serif;
+      /* Serif font for Nature style */
+    }
+
+    .nature #toggleButton {
+      background-color: #8db580;
+      /* Light green background for Nature style */
       color: #3d6b37;
       /* Dark green text for Nature style */
       font-family: 'Times New Roman', Times, serif;
@@ -227,6 +282,15 @@
       /* Narrow font for Industrial style */
     }
 
+    .industrial #toggleButton {
+      background-color: #333;
+      /* Dark gray background for Industrial style */
+      color: #ccc;
+      /* Light gray text for Industrial style */
+      font-family: 'Arial Narrow', Arial, sans-serif;
+      /* Narrow font for Industrial style */
+    }
+
     /* CSS for gothic style */
     .gothic {
       background-color: #000;
@@ -249,6 +313,15 @@
 
     /* CSS for gothic label */
     .gothic label {
+      color: #fff;
+      /* White text for Gothic style */
+      font-family: 'Old English Text MT', serif;
+      /* Gothic font for Gothic style */
+    }
+
+    .gothic #toggleButton {
+      background-color: #000;
+      /* Black background for Gothic style */
       color: #fff;
       /* White text for Gothic style */
       font-family: 'Old English Text MT', serif;
@@ -283,6 +356,15 @@
       /* Art Deco font for Art Deco style */
     }
 
+    .art-deco #toggleButton {
+      background-color: #000;
+      /* Black background for Art Deco style */
+      color: #fff;
+      /* White text for Art Deco style */
+      font-family: 'Bauhaus 93', sans-serif;
+      /* Art Deco font for Art Deco style */
+    }
+
     /* CSS for steampunk style */
     .steampunk {
       background-color: #2b2b2b;
@@ -305,6 +387,15 @@
 
     /* CSS for steampunk label */
     .steampunk label {
+      color: #d4af37;
+      /* Gold text for Steampunk style */
+      font-family: 'Old Standard TT', serif;
+      /* Old-fashioned font for Steampunk style */
+    }
+
+    .steampunk #toggleButton {
+      background-color: #2b2b2b;
+      /* Dark gray background for Steampunk style */
       color: #d4af37;
       /* Gold text for Steampunk style */
       font-family: 'Old Standard TT', serif;
@@ -357,6 +448,9 @@
         <option value="steampunk">Steampunk</option> <!-- Steampunk style option -->
       </select>
     </div>
+
+    <!-- Button to toggle visibility -->
+    <button id="toggleButton">Hide</button>
   </div>
 
   <script>
@@ -367,6 +461,8 @@
       const clockStyleSelect = document.getElementById('clock-style'); // Reference to the clock style selection element
       const showSecondsSelect = document.getElementById('show-seconds'); // Reference to the show seconds selection element
       const ampmSelect = document.getElementById('ampm'); // Reference to the AM/PM selection element
+      const toggleButton = document.getElementById('toggleButton'); // Reference to the toggle button
+      const options = document.querySelectorAll('.options, .clocks-dropdown'); // Reference to options and clocks-dropdown
       // Function to update the clock display
       function updateClock() {
         const now = new Date(); // Current date and time
@@ -388,6 +484,21 @@
         const timeString = now.toLocaleTimeString([], options).replace(/^0/, ''); // Remove leading zero
         clockElement.textContent = timeString; // Update the clock display with the formatted time
       }
+      // Function to toggle visibility of options and clocks-dropdown
+      function toggleVisibility() {
+        options.forEach(option => {
+          option.classList.toggle('hidden'); // Toggle the hidden class
+        });
+        // Change button text based on visibility
+        const buttonText = toggleButton.textContent;
+        if (buttonText === 'Hide') {
+          toggleButton.textContent = 'Show';
+        } else {
+          toggleButton.textContent = 'Hide';
+        }
+      }
+      // Add event listener to toggle button
+      toggleButton.addEventListener('click', toggleVisibility);
       // Add event listener for clock style change
       clockStyleSelect.addEventListener('change', function() {
         const selectedStyle = clockStyleSelect.value;
