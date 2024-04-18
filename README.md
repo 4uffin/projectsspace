@@ -20,3 +20,6 @@ If you'd like to help me with my projects (ex. you find something that could be 
 
 - **Tib - TinyWeb:** [Visit](https://duffin.neocities.org/tinyweb/home)
   An open-source project enabling users to discover user-submitted URLs based on interests. Developed with accessibility and user experience in mind.
+
+- **Audio Player:** [Visit](https://duffin.neocities.org/audioplayer/listen)
+  A simple web-based audio player interface with controls, a file upload feature, and a visualizer. It allows users to upload audio files (in MP3, WAV, or OGG format) and play them with basic playback controls such as play, pause, and stop. Additionally, the visualizer provides a graphical representation of the audio frequencies in real-time.
