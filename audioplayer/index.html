@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/audioplayericon.png">
+  <title>Audio Player</title>
+  <style>
+    /* CSS styles for the page layout and components */
+    body, html {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      text-align: center;
+      border: 2px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      max-width: 600px;
+      width: 90%;
+    }
+
+    .player {
+      text-align: center;
+    }
+    
+    audio {
+      width: 100%;
+    }
+
+    .controls button {
+      margin: 10px;
+      padding: 8px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .controls button:hover {
+      background-color: #45a049;
+    }
+
+    canvas {
+      display: block;
+      margin: 20px auto;
+      width: 80%;
+      height: 100px;
+    }
+
+    .equalizer {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .equalizer label {
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    .equalizer input {
+      margin: 0 10px;
+      -webkit-appearance: none;
+      width: 100px;
+      height: 10px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    .equalizer input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      cursor: pointer;
+    }
+
+    .equalizer input[type="range"]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #4CAF50;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    .file-upload {
+      margin-top: 20px;
+    }
+
+    .file-upload label {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .file-upload label:hover {
+      background-color: #45a049;
+    }
+
+    #fileName {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- MP3 player interface -->
+    <div class="player">
+      <!-- Audio player with controls -->
+      <audio id="audioPlayer" controls>
+        <source src="" type="audio/mpeg">
+        <source src="" type="audio/wav">
+        <source src="" type="audio/ogg">
+        Your browser does not support the audio element.
+      </audio>
+      <!-- Playback controls -->
+      <div class="controls">
+        <button id="playBtn" title="Play">Play</button>
+        <button id="pauseBtn" title="Pause">Pause</button>
+        <button id="stopBtn" title="Stop">Stop</button>
+      </div>
+      <!-- File upload input -->
+      <div class="file-upload">
+        <input type="file" id="fileInput" accept=".mp3, .wav, .ogg">
+        <label for="fileInput" title="Upload Song">Upload Song</label>
+        <span id="fileName"></span>
+      </div>
+      <!-- Visualizer canvas -->
+      <canvas id="visualizer" title="Wow! Muy cool!"></canvas>
+      <!-- Equalizer controls -->
+      <div class="equalizer">
+        <label for="bassControl">Bass:</label>
+        <input type="range" id="bassControl" min="0" max="100" value="50" title="Bass">
+        <label for="midControl">Mid:</label>
+        <input type="range" id="midControl" min="0" max="100" value="50" title="Mid">
+        <label for="trebleControl">Treble:</label>
+        <input type="range" id="trebleControl" min="0" max="100" value="50" title="Treble">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript code for controlling the MP3 player and visualizer
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get references to HTML elements
+      const audio = document.getElementById('audioPlayer');
+      const playBtn = document.getElementById('playBtn');
+      const pauseBtn = document.getElementById('pauseBtn');
+      const stopBtn = document.getElementById('stopBtn');
+      const fileInput = document.getElementById('fileInput');
+      const fileNameDisplay = document.getElementById('fileName');
+      const canvas = document.getElementById('visualizer');
+      const canvasCtx = canvas.getContext('2d');
+      const bassControl = document.getElementById('bassControl');
+      const midControl = document.getElementById('midControl');
+      const trebleControl = document.getElementById('trebleControl');
+      let audioCtx, analyser, dataArray;
+      let currentTime = 0;
+      let isPlaying = false; // Track the playback state
+      
+      // Set default volume to 50%
+      audio.volume = 0.5;
+
+      // Event listener for the play button
+      playBtn.addEventListener('click', function() {
+        audio.play();
+        isPlaying = true;
+      });
+
+      // Event listener for the pause button
+      pauseBtn.addEventListener('click', function() {
+        audio.pause();
+        isPlaying = false;
+      });
+
+      // Event listener for the stop button
+      stopBtn.addEventListener('click', function() {
+        audio.pause();
+        audio.currentTime = 0;
+        isPlaying = false;
+      });
+
+      // Event listener for file input change
+      fileInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        const fileName = file ? file.name : '';
+        fileNameDisplay.textContent = fileName;
+
+        // Close the audio context if it exists
+        if (audioCtx) {
+          audioCtx.close();
+        }
+
+        // Load the selected file
+        if (file) {
+          audio.src = URL.createObjectURL(file);
+          if (isPlaying) {
+            audio.play(); // Resume playback if it was playing before
+          }
+
+          // Create audio context and analyser
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          analyser = audioCtx.createAnalyser();
+          const source = audioCtx.createMediaElementSource(audio);
+          source.connect(analyser);
+          analyser.connect(audioCtx.destination);
+
+          analyser.fftSize = 256;
+          const bufferLength = analyser.frequencyBinCount;
+          dataArray = new Uint8Array(bufferLength);
+
+          draw(); // Start drawing the visualizer
+        }
+      });
+
+      // Function to draw the visualizer
+      function draw() {
+        const WIDTH = canvas.width;
+        const HEIGHT = canvas.height;
+
+        requestAnimationFrame(draw);
+
+        analyser.getByteFrequencyData(dataArray);
+
+        // Clear the canvas
+        canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+
+        const barWidth = (WIDTH / dataArray.length) * 2.5;
+        let x = 0;
+
+        for (let i = 0; i < dataArray.length; i++) {
+          const barHeight = dataArray[i]; // Divide barHeight by 2
+
+          // Set a gradient for the bars
+          const gradient = canvasCtx.createLinearGradient(0, 0, 0, HEIGHT);
+          gradient.addColorStop(0, '#4CAF50');
+          gradient.addColorStop(1, '#45a049');
+          canvasCtx.fillStyle = gradient;
+
+          canvasCtx.fillRect(x, HEIGHT - barHeight / 4, barWidth, barHeight / 2); // Divide by 2
+          x += barWidth + 1;
+        }
+      }
+
+      // Event listeners for the equalizer controls
+      bassControl.addEventListener('input', function() {
+        const bassValue = parseFloat(bassControl.value);
+        setFilter('bass', bassValue);
+      });
+
+      midControl.addEventListener('input', function() {
+        const midValue = parseFloat(midControl.value);
+        setFilter('mid', midValue);
+      });
+
+      trebleControl.addEventListener('input', function() {
+        const trebleValue = parseFloat(trebleControl.value);
+        setFilter('treble', trebleValue);
+      });
+
+      // Function to set audio filter
+      function setFilter(type, value) {
+        const filters = {
+          'bass': { type: 'lowshelf', frequency: 100, gain: (value - 50) / 10 },
+          'mid': { type: 'peaking', frequency: 1000, gain: (value - 50) / 10 },
+          'treble': { type: 'highshelf', frequency: 5000, gain: (value - 50) / 10 }
+        };
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = filters[type].type;
+        filter.frequency.value = filters[type].frequency;
+        filter.gain.value = filters[type].gain;
+
+        // Store the current playback position
+        currentTime = audio.currentTime;
+        audio.pause(); // Pause audio temporarily to apply filter
+
+        // Apply the filter to the audio
+        const source = audioCtx.createMediaElementSource(audio);
+        source.connect(filter);
+        filter.connect(audioCtx.destination);
+        source.mediaElement.playbackRate = audio.playbackRate;
+        source.mediaElement.currentTime = currentTime;
+
+        // Resume playback
+        audio.play();
+      }
+    });
+  </script>
+</body>
+</html>
