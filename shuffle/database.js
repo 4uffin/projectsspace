@@ -387,7 +387,15 @@ const songsByArtist = {
   "Ella Henderson": [
     {
       name: "Ghost",
-      youtubeId: "Fp8msa5uYsc"
+      youtubeId: "tA8AfQaUnXM"
+    },
+    {
+      name: "Yours",
+      youtubeId: "CAjKZJarlwk"
+    },
+    {
+      name: "Brave",
+      youtubeId: "JTK1nC8ptkA"
     },
     // Add more songs as needed
   ],
@@ -399,11 +407,11 @@ const songsByArtist = {
     },
     {
       name: "Tiny Dancer",
-      youtubeId: "yURRmWtbTbo"
+      youtubeId: "yYcyacLRPNs"
     },
     {
       name: "Your Song",
-      youtubeId: "mTa8U0Wa0q8"
+      youtubeId: "FT3D1Cu6g10"
     },
     // Add more songs as needed
   ],
@@ -656,6 +664,14 @@ const songsByArtist = {
     {
       name: "DNA.",
       youtubeId: "NLZRYQMLDW4"
+    },
+    // Add more songs as needed
+  ],
+  // Kesha songs
+  "Kesha": [
+    {
+      name: "Praying",
+      youtubeId: "v-Dur3uXXCQ"
     },
     // Add more songs as needed
   ],
@@ -1253,7 +1269,7 @@ const songsByArtist = {
   ]
 };
 
-// Type in video id to search: 
+// Type in video id to search: mTa8U0Wa0q8
 
 let totalYouTubeIds = 0;
 let totalArtists = 0;
