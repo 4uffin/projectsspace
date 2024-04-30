@@ -1292,7 +1292,7 @@ const songsByArtist = {
   ]
 };
 
-// Type in video id to search: ZBR2G-iI3-I
+// Type in video id to search: 
 
 let totalYouTubeIds = 0;
 let totalArtists = 0;
