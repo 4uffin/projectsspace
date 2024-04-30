@@ -1197,6 +1197,14 @@ const songsByArtist = {
       youtubeId: "waU75jdUnYw"
     },
     {
+      name: "In Your Eyes",
+      youtubeId: "dqRZDebPIGs"
+    },
+    {
+      name: "Save Your Tears",
+      youtubeId: "XXYlFuWEuKI"
+    },
+    {
       name: "Starboy",
       youtubeId: "34Na4j8AVgA"
     },
