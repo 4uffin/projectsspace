@@ -1,0 +1,339 @@
+<!DOCTYPE html> <!-- Document type declaration -->
+
+<html lang="en">
+<!-- Opening of the HTML document, with language set to English -->
+
+<head>
+  <meta charset="UTF-8"> <!-- Character encoding -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport meta tag for responsive design -->
+  <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/shuffleicontransparent.png"> <!-- Link to favicon -->
+  <meta name="description" content="Discover songs by Shuffling them, randomly."> <!-- Description meta tag for page description -->
+  <meta name="keywords" content="Music, Songs, Shuffle, Random, YouTube"> <!-- Keywords meta tag for page contents -->
+  <title>Shuffle - Discover songs, randomly.</title> <!-- Title of the webpage -->
+
+  <style>
+    /* Global reset and styles for the body and HTML */
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom, #00b9ff, #056bff);
+      /* Linear gradient background */
+    }
+
+    /* Container for the circle */
+    .circle-container {
+      position: relative;
+      /* Set the position to relative */
+      text-align: center;
+      /* Center-align the content */
+      z-index: 1;
+      /* Set the z-index to 1 to ensure it's above other elements */
+    }
+
+    /* Styling for the main circle */
+    .circle {
+      position: relative;
+      /* Set the position to relative */
+      width: 200px;
+      /* Set the width */
+      height: 200px;
+      /* Set the height */
+      background: linear-gradient(to bottom, #67caff, #68b8ff);
+      /* Linear gradient background */
+      border-radius: 50%;
+      /* Make it a circle */
+      display: flex;
+      /* Use flexbox for positioning */
+      flex-direction: column;
+      /* Set the flex direction to column */
+      justify-content: center;
+      /* Center the content vertically */
+      align-items: center;
+      /* Center the content horizontally */
+      cursor: pointer;
+      /* Set the cursor to pointer */
+      font-size: 2rem;
+      /* Set the font size */
+      font-family: 'Arial', sans-serif;
+      /* Set the font family */
+      color: #fff;
+      /* Set the text color */
+      transition: all 1s ease-in-out;
+      /* Smooth transition for animations */
+      animation: idleAnimation 1s infinite alternate;
+      /* Animation for idle state */
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+      /* Add a box shadow */
+      margin-bottom: 50px;
+      /* Add margin to the bottom */
+    }
+
+    /* Styling for the white circle behind */
+    .circle-behind {
+      position: absolute;
+      /* Set the position to absolute */
+      width: 200px;
+      /* Set the width */
+      height: 200px;
+      /* Set the height */
+      background-color: white;
+      /* Set the background color to white */
+      border-radius: 50%;
+      /* Make it a circle */
+      z-index: 0;
+      /* Set the z-index to 0 to position it behind other elements */
+      animation: expandCircle 2s infinite;
+      /* Animation for expanding */
+    }
+
+    /* Styling for the text inside the circle */
+    .circle-text {
+      font-size: 1.2rem;
+      /* Set the font size */
+      font-family: 'Arial', sans-serif;
+      /* Set the font family */
+      font-weight: Bold;
+      /* Set the font weight */
+      color: #fff;
+      /* Set the text color */
+    }
+
+    /* Styling for the video container */
+    .video-container {
+      position: fixed;
+      /* Set the position to fixed */
+      top: 0;
+      /* Align to the top */
+      left: 0;
+      /* Align to the left */
+      width: 100%;
+      /* Set the width to 100% */
+      height: 100%;
+      /* Set the height to 100% */
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Semi-transparent black background */
+      display: flex;
+      /* Use flexbox for positioning */
+      justify-content: center;
+      /* Center the content horizontally */
+      align-items: center;
+      /* Center the content vertically */
+      z-index: 9999;
+      /* Set a high z-index */
+      visibility: hidden;
+      /* Hide the container by default */
+    }
+
+    /* Active state for the video container */
+    .video-container.active {
+      visibility: visible;
+      /* Show the container when active */
+    }
+
+    /* Styling for the video iframe */
+    .video-container iframe {
+      width: 560px;
+      /* Set the width */
+      height: 315px;
+      /* Set the height */
+      border-radius: 15px;
+      /* Add border radius */
+    }
+
+    /* Styling for the close button */
+    .close-btn {
+      width: 40px;
+      /* Set the width */
+      height: 40px;
+      /* Set the height */
+      background-color: #fff;
+      /* Set the background color */
+      border: none;
+      /* Remove border */
+      border-radius: 50%;
+      /* Make it a circle */
+      display: flex;
+      /* Use flexbox for positioning */
+      justify-content: center;
+      /* Center the content horizontally */
+      align-items: center;
+      /* Center the content vertically */
+      cursor: pointer;
+      /* Set the cursor to pointer */
+      position: absolute;
+      /* Set the position to absolute */
+      bottom: 240px;
+      /* Set the distance from the bottom */
+    }
+
+    /* Media query for smaller screens */
+    @media screen and (max-width: 2024px) {
+      .close-btn {
+        bottom: 120px;
+        /* Adjust the distance from the bottom */
+      }
+    }
+
+    /* Styling for the close icon */
+    .close-icon {
+      width: 25px;
+      /* Set the width */
+      height: 25px;
+      /* Set the height */
+      fill: #3498db;
+      /* Set the fill color */
+    }
+
+    /* Styling for the statistics */
+    .stat {
+      font-family: 'Arial', sans-serif;
+      /* Set the font family */
+      font-size: 1rem;
+      /* Set the font size */
+      color: #fff;
+      /* Set the text color */
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Semi-transparent black background */
+      padding: 10px 20px;
+      /* Set padding */
+      border-radius: 5px;
+      /* Add border radius */
+      margin-bottom: 10px;
+      /* Add margin to the bottom */
+      position: fixed;
+      /* Set the position to fixed */
+      left: 50%;
+      /* Align to the center horizontally */
+      transform: translateX(-50%);
+      /* Center horizontally */
+    }
+
+    /* Adjust the position of the statistics */
+    #totalYouTubeIds {
+      bottom: 60px;
+      /* Set the distance from the bottom */
+    }
+
+    #totalArtists {
+      bottom: 20px;
+      /* Set the distance from the bottom */
+    }
+
+    /* Keyframe animation for the main circle */
+    @keyframes idleAnimation {
+      0% {
+        transform: scale(1);
+        /* Initial scale */
+      }
+
+      100% {
+        transform: scale(1.05);
+        /* Scale up */
+      }
+    }
+
+    /* Keyframe animation for the expanding circle behind */
+    @keyframes expandCircle {
+      0% {
+        transform: scale(1);
+        /* Initial scale */
+        opacity: 1;
+        /* Full opacity */
+      }
+
+      100% {
+        transform: scale(1.5);
+        /* Scale up */
+        opacity: 0;
+        /* Fade out */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Circle container -->
+  <div class="circle-container">
+    <!-- New circle behind -->
+    <div class="circle-behind"></div>
+    <!-- Circle element -->
+    <div class="circle" id="circle" title="Shuffle">
+      <span style="font-size: 5em; font-weight: Bold;">S</span> <!-- Icon or text inside the circle -->
+    </div>
+    <!-- Text below the circle -->
+    <span class="circle-text">Click to Shuffle a song</span>
+  </div>
+
+  <!-- Video container -->
+  <div class="video-container" id="video-container">
+    <!-- YouTube video iframe -->
+    <iframe id="video" width="560" height="315" src="" frameborder="0" allowfullscreen title="YouTube Video Player" volume="0.5"></iframe>
+    <!-- Close button -->
+    <button class="close-btn" id="close-btn" aria-label="Close" title="Close">
+      <!-- Close icon -->
+      <svg class="close-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="#3498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Total YouTube IDs stat -->
+  <div class="stat" id="totalYouTubeIds"></div>
+
+  <!-- Total Artists stat -->
+  <div class="stat" id="totalArtists"></div>
+
+  <!-- External JavaScript file for database -->
+  <script src="https://duffin.neocities.org/shuffle/database.js"></script>
+  <script>
+    const allSongs = Object.values(songsByArtist).flat();
+    const circle = document.getElementById("circle");
+    const videoContainer = document.getElementById("video-container");
+    const video = document.getElementById("video");
+    const closeBtn = document.getElementById("close-btn");
+    let shuffledSongs = []; // Initialize an array to store shuffled songs
+    let currentIndex = 0;
+    // Function to shuffle songs
+    function shuffleSongs() {
+      shuffledSongs = [...allSongs]; // Create a copy of all songs
+      for (let i = shuffledSongs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledSongs[i], shuffledSongs[j]] = [shuffledSongs[j], shuffledSongs[i]]; // Swap elements to shuffle
+      }
+    }
+    // Function to play a song
+    function playSong() {
+      if (currentIndex >= shuffledSongs.length) {
+        // If all songs have been played, shuffle again
+        shuffleSongs();
+        currentIndex = 0;
+      }
+      const song = shuffledSongs[currentIndex];
+      const youtubeEmbedUrl = `https://www.youtube.com/embed/${song.youtubeId}?autoplay=1&amp;volume=50`; // YouTube embed URL
+      video.src = youtubeEmbedUrl; // Set video source
+      videoContainer.classList.add("active"); // Show video container
+      document.body.style.overflow = "hidden"; // Disable scrolling
+      currentIndex++; // Increment index for the next song
+    }
+    // Event listener for clicking the circle
+    circle.addEventListener("click", () => {
+      playSong();
+      circle.style.transform = "scale(0.9)"; // Scale down the circle
+    });
+    // Event listener for clicking the close button
+    closeBtn.addEventListener("click", () => {
+      videoContainer.classList.remove("active"); // Hide video container
+      video.src = ""; // Clear video source
+      document.body.style.overflow = ""; // Enable scrolling
+    });
+    // Initial shuffle
+    shuffleSongs();
+  </script>
+</body>
+
+</html>
