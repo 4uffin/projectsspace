@@ -1022,6 +1022,30 @@ const songsByArtist = {
     }
     // Add more songs as needed
   ],
+  // Shawn Mendes songs
+  "Shawn Mendes": [
+    {
+      name: "If I Can't Have You",
+      youtubeId: "oTJ-oqwxdZY"
+    },
+    {
+      name: "Mercy",
+      youtubeId: "KkGVmN68ByU"
+    },
+    {
+      name: "Stitches",
+      youtubeId: "VbfpW0pbvaU"
+    },
+    {
+      name: "There's Nothing Holdin' Me Back",
+      youtubeId: "dT2owtxkU8k"
+    },
+    {
+      name: "Treat You Better",
+      youtubeId: "lY2yjAdbvdQ"
+    }
+    // Add more songs as needed
+  ],
   // Simon & Garfunkel songs
   "Simon & Garfunkel": [
     {
@@ -1075,6 +1099,22 @@ const songsByArtist = {
     {
       name: "Sunflower",
       youtubeId: "ApXoWvfEYVU"
+    }
+    // Add more songs as needed
+  ],
+  // SZA songs
+  "SZA": [
+    {
+      name: "Good Days",
+      youtubeId: "2p3zZoraK9g"
+    },
+    {
+      name: "Kill Bill",
+      youtubeId: "MSRcC626prw"
+    },
+    {
+      name: "Snooze",
+      youtubeId: "LDY_XyxBu8A"
     }
     // Add more songs as needed
   ],
