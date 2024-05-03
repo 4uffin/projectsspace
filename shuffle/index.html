@@ -291,37 +291,48 @@
   <!-- External JavaScript file for database -->
   <script src="https://duffin.neocities.org/shuffle/database.js"></script>
   <script>
-    // Extract all songs from the database into an array
     const allSongs = Object.values(songsByArtist).flat();
     const circle = document.getElementById("circle");
     const videoContainer = document.getElementById("video-container");
     const video = document.getElementById("video");
     const closeBtn = document.getElementById("close-btn");
-    let lastSongIndex = null;
-    // Event listener for clicking the circle
-    circle.addEventListener("click", () => {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * allSongs.length); // Generate random index
-      } while (randomIndex === lastSongIndex); // Ensure it's not the same as last time
-      lastSongIndex = randomIndex; // Update last song index
-      const randomSong = allSongs[randomIndex]; // Get random song
-      playSong(randomSong); // Play the random song
-      circle.style.transform = "scale(0.9)"; // Scale down the circle
-    });
+    let shuffledSongs = []; // Initialize an array to store shuffled songs
+    let currentIndex = 0;
+    // Function to shuffle songs
+    function shuffleSongs() {
+      shuffledSongs = [...allSongs]; // Create a copy of all songs
+      for (let i = shuffledSongs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledSongs[i], shuffledSongs[j]] = [shuffledSongs[j], shuffledSongs[i]]; // Swap elements to shuffle
+      }
+    }
     // Function to play a song
-    function playSong(song) {
+    function playSong() {
+      if (currentIndex >= shuffledSongs.length) {
+        // If all songs have been played, shuffle again
+        shuffleSongs();
+        currentIndex = 0;
+      }
+      const song = shuffledSongs[currentIndex];
       const youtubeEmbedUrl = `https://www.youtube.com/embed/${song.youtubeId}?autoplay=1&amp;volume=50`; // YouTube embed URL
       video.src = youtubeEmbedUrl; // Set video source
       videoContainer.classList.add("active"); // Show video container
       document.body.style.overflow = "hidden"; // Disable scrolling
+      currentIndex++; // Increment index for the next song
     }
+    // Event listener for clicking the circle
+    circle.addEventListener("click", () => {
+      playSong();
+      circle.style.transform = "scale(0.9)"; // Scale down the circle
+    });
     // Event listener for clicking the close button
     closeBtn.addEventListener("click", () => {
       videoContainer.classList.remove("active"); // Hide video container
       video.src = ""; // Clear video source
       document.body.style.overflow = ""; // Enable scrolling
     });
+    // Initial shuffle
+    shuffleSongs();
   </script>
 </body>
 
