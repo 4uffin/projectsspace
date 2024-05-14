@@ -1,13 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/audioplayericontransparent.png">
   <title>Audio Player</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="A web-based audio player with controls, visualizer, and equalizer. Upload your favorite songs and customize the audio output.">
+  <meta name="keywords" content="Audio Player, web-based, music player, audio controls, visualizer, equalizer, HTML, CSS, JavaScript">
+  <meta name="author" content="Duffin">
+
+  <!-- Open Graph (OG) Meta Tags -->
+  <meta property="og:title" content="Audio Player">
+  <meta property="og:description" content="A web-based audio player with controls, visualizer, and equalizer. Upload your favorite songs and customize the audio output.">
+  <meta property="og:image" content="https://duffin.neocities.org/images/audioplayericontransparent.png">
+  <meta property="og:url" content="https://duffin.neocities.org/audio-player">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Audio Player">
+  <meta name="twitter:description" content="A web-based audio player with controls, visualizer, and equalizer. Upload your favorite songs and customize the audio output.">
+  <meta name="twitter:image" content="https://duffin.neocities.org/images/audioplayericontransparent.png">
+
   <style>
     /* CSS styles for the page layout and components */
-    body, html {
+    body,
+    html {
       height: 100%;
       margin: 0;
       display: flex;
@@ -31,7 +52,7 @@
     .player {
       text-align: center;
     }
-    
+
     audio {
       width: 100%;
     }
@@ -127,6 +148,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <!-- MP3 player interface -->
@@ -182,135 +204,122 @@
       let audioCtx, analyser, dataArray;
       let currentTime = 0;
       let isPlaying = false; // Track the playback state
-      
       // Set default volume to 50%
       audio.volume = 0.5;
-
       // Event listener for the play button
       playBtn.addEventListener('click', function() {
         audio.play();
         isPlaying = true;
       });
-
       // Event listener for the pause button
       pauseBtn.addEventListener('click', function() {
         audio.pause();
         isPlaying = false;
       });
-
       // Event listener for the stop button
       stopBtn.addEventListener('click', function() {
         audio.pause();
         audio.currentTime = 0;
         isPlaying = false;
       });
-
       // Event listener for file input change
       fileInput.addEventListener('change', function(event) {
         const file = event.target.files[0];
         const fileName = file ? file.name : '';
         fileNameDisplay.textContent = fileName;
-
         // Close the audio context if it exists
         if (audioCtx) {
           audioCtx.close();
         }
-
         // Load the selected file
         if (file) {
           audio.src = URL.createObjectURL(file);
           if (isPlaying) {
             audio.play(); // Resume playback if it was playing before
           }
-
           // Create audio context and analyser
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+          audioCtx = new(window.AudioContext || window.webkitAudioContext)();
           analyser = audioCtx.createAnalyser();
           const source = audioCtx.createMediaElementSource(audio);
           source.connect(analyser);
           analyser.connect(audioCtx.destination);
-
           analyser.fftSize = 256;
           const bufferLength = analyser.frequencyBinCount;
           dataArray = new Uint8Array(bufferLength);
-
           draw(); // Start drawing the visualizer
         }
       });
-
       // Function to draw the visualizer
       function draw() {
         const WIDTH = canvas.width;
         const HEIGHT = canvas.height;
-
         requestAnimationFrame(draw);
-
         analyser.getByteFrequencyData(dataArray);
-
         // Clear the canvas
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
-
         const barWidth = (WIDTH / dataArray.length) * 2.5;
         let x = 0;
-
         for (let i = 0; i < dataArray.length; i++) {
           const barHeight = dataArray[i]; // Divide barHeight by 2
-
           // Set a gradient for the bars
           const gradient = canvasCtx.createLinearGradient(0, 0, 0, HEIGHT);
           gradient.addColorStop(0, '#4CAF50');
           gradient.addColorStop(1, '#45a049');
           canvasCtx.fillStyle = gradient;
-
           canvasCtx.fillRect(x, HEIGHT - barHeight / 4, barWidth, barHeight / 2); // Divide by 2
           x += barWidth + 1;
         }
       }
-
       // Event listeners for the equalizer controls
       bassControl.addEventListener('input', function() {
         const bassValue = parseFloat(bassControl.value);
         setFilter('bass', bassValue);
       });
-
       midControl.addEventListener('input', function() {
         const midValue = parseFloat(midControl.value);
         setFilter('mid', midValue);
       });
-
       trebleControl.addEventListener('input', function() {
         const trebleValue = parseFloat(trebleControl.value);
         setFilter('treble', trebleValue);
       });
-
       // Function to set audio filter
       function setFilter(type, value) {
         const filters = {
-          'bass': { type: 'lowshelf', frequency: 100, gain: (value - 50) / 10 },
-          'mid': { type: 'peaking', frequency: 1000, gain: (value - 50) / 10 },
-          'treble': { type: 'highshelf', frequency: 5000, gain: (value - 50) / 10 }
+          'bass': {
+            type: 'lowshelf',
+            frequency: 100,
+            gain: (value - 50) / 10
+          },
+          'mid': {
+            type: 'peaking',
+            frequency: 1000,
+            gain: (value - 50) / 10
+          },
+          'treble': {
+            type: 'highshelf',
+            frequency: 5000,
+            gain: (value - 50) / 10
+          }
         };
-
         const filter = audioCtx.createBiquadFilter();
         filter.type = filters[type].type;
         filter.frequency.value = filters[type].frequency;
         filter.gain.value = filters[type].gain;
-
         // Store the current playback position
         currentTime = audio.currentTime;
         audio.pause(); // Pause audio temporarily to apply filter
-
         // Apply the filter to the audio
         const source = audioCtx.createMediaElementSource(audio);
         source.connect(filter);
         filter.connect(audioCtx.destination);
         source.mediaElement.playbackRate = audio.playbackRate;
         source.mediaElement.currentTime = currentTime;
-
         // Resume playback
         audio.play();
       }
     });
   </script>
 </body>
+
 </html>
