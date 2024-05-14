@@ -8,7 +8,22 @@
   <title>Tib - TinyWeb</title>
   <!-- Favicon for the webpage -->
   <link rel="icon" type="image/x-icon" href="https://tinyweb.neocities.org/Images/tiblogo.PNG">
-  
+
+  <!-- Meta tags for SEO -->
+  <meta name="description" content="Tib - TinyWeb is a platform to search for user submitted URLs based on your interests. Explore and find relevant links submitted by the community.">
+  <meta name="keywords" content="Tib, TinyWeb, user submitted URLs, community links, search engine, web platform">
+  <meta name="author" content="Duffin">
+
+  <!-- Meta tags for social media -->
+  <meta property="og:title" content="Tib - TinyWeb">
+  <meta property="og:description" content="Tib - TinyWeb is a platform to search for user submitted URLs based on your interests. Explore and find relevant links submitted by the community.">
+  <meta property="og:image" content="https://tinyweb.neocities.org/Images/tiblogo.PNG">
+  <meta property="og:url" content="https://yourwebsite.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tib - TinyWeb">
+  <meta name="twitter:description" content="Tib - TinyWeb is a platform to search for user submitted URLs based on your interests. Explore and find relevant links submitted by the community.">
+  <meta name="twitter:image" content="https://tinyweb.neocities.org/Images/tiblogo.PNG">
+
   <!-- Internal CSS styles -->
   <style>
     /* Styling for links */
@@ -45,7 +60,8 @@
 
     .duffinshubHeaderLogo {
       font-family: 'Arial', sans-serif;
-      margin: 0; /* Remove default margin to avoid spacing */
+      margin: 0;
+      /* Remove default margin to avoid spacing */
     }
 
     #duffinshubHeaderLogoLink {
@@ -55,10 +71,12 @@
 
     .duffinshubHeaderTagline {
       font-family: 'Arial', sans-serif;
-      font-size: 0.8rem; /* Adjust the font size as needed */
-      opacity: 0.7; /* Adjust the opacity for a faded look (1 is fully opaque, 0 is fully transparent) */
+      font-size: 0.8rem;
+      /* Adjust the font size as needed */
+      opacity: 0.7;
+      /* Adjust the opacity for a faded look (1 is fully opaque, 0 is fully transparent) */
     }
-    
+
     /* Styles for expand button */
     .ExpandButton {
       background: linear-gradient(to bottom, White 0%, LightGrey 50%);
@@ -97,7 +115,7 @@
     .Tiblogo:hover {
       cursor: pointer;
     }
-    
+
     #Tiblogolink {
       color: Black;
       text-decoration: None;
@@ -227,7 +245,7 @@
   <div class="duffinshubHeader">
     <h1 class="duffinshubHeaderLogo"><a href="https://duffin.neocities.org/" id="duffinshubHeaderLogoLink">Duffin's Hub</a></h1>
     <p class="duffinshubHeaderTagline">for Web-Based-Things</p>
-    
+
     <!-- Dropdown menu for Tib options -->
     <select onChange="window.location.href=this.value" class="ExpandButton">
       <option value="">Expand</option>
@@ -244,7 +262,7 @@
   <!-- Header section with Tib logo and menu buttons -->
   <div class="header">
     <h1 class="Tiblogo"><a href="https://duffin.neocities.org/tinyweb/home" id="Tiblogolink">Tib</a></h1>
-    
+
     <!-- Navigation menu buttons -->
     <nav class="menubuttons">
       <button class="SubmitURLButton" title="Join the community!"><a href="https://forms.gle/dDxZ8R7uJf126R6c6" id="SubmitURLLink">Submit URL!</a></button>
@@ -257,11 +275,14 @@
   <div class="aboutTib">
     <h2>How to use Tib</h2>
     <p>Search your interests, and find user submitted URL's that match that search!</p>
-    <p><font color="Red">NOTE: Do not submit URL's that may contain personal information!</font></p>
+    <p>
+      <font color="Red">NOTE: Do not submit URL's that may contain personal information!</font>
+    </p>
   </div>
 
   <!-- Search statistics -->
-  <p class="SearchStats">Safe Search: <font color="Green">Off</font> | URLs submitted: <font color="Green">316</font></p>
+  <p class="SearchStats">Safe Search: <font color="Green">Off</font> | URLs submitted: <font color="Green">316</font>
+  </p>
 
   <!-- Google custom search engine -->
   <script async src="https://cse.google.com/cse.js?cx=b658bf6888ab743b0"></script>
