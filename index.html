@@ -1,300 +1,321 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html> <!-- Define document type as HTML5 -->
+<html lang="en">
+<!-- Set language to English -->
 
 <head>
-  <!-- Viewport settings for responsiveness -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Title of the webpage -->
-  <title>Tib - TinyWeb</title>
-  <!-- Favicon for the webpage -->
-  <link rel="icon" type="image/x-icon" href="https://tinyweb.neocities.org/Images/tiblogo.PNG">
 
-  <!-- Meta tags for SEO -->
-  <meta name="description" content="Tib - TinyWeb is a platform to search for user submitted URLs based on your interests. Explore and find relevant links submitted by the community.">
-  <meta name="keywords" content="Tib, TinyWeb, user submitted URLs, community links, search engine, web platform">
+  <!-- SEO meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="Duffin">
+  <meta name="keywords" content="web development, HTML, CSS, JavaScript, projects">
+  <meta name="description" content="Duffin's Hub is a collection of web-based projects created by Duffin. Explore various projects related to web development and more.">
+  
+  <!-- Open Graph meta tags -->
+  <meta property="og:title" content="Duffin's Hub">
+  <meta property="og:description" content="Duffin's Hub is a collection of web-based projects created by Duffin. Explore various projects related to web development and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://duffin.neocities.org">
+  <meta property="og:image" content="https://duffin.neocities.org/images/duffinshubfavicon.png">
 
-  <!-- Meta tags for social media -->
-  <meta property="og:title" content="Tib - TinyWeb">
-  <meta property="og:description" content="Tib - TinyWeb is a platform to search for user submitted URLs based on your interests. Explore and find relevant links submitted by the community.">
-  <meta property="og:image" content="https://tinyweb.neocities.org/Images/tiblogo.PNG">
-  <meta property="og:url" content="https://yourwebsite.com">
+  <!-- Twitter meta tags -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Tib - TinyWeb">
-  <meta name="twitter:description" content="Tib - TinyWeb is a platform to search for user submitted URLs based on your interests. Explore and find relevant links submitted by the community.">
-  <meta name="twitter:image" content="https://tinyweb.neocities.org/Images/tiblogo.PNG">
+  <meta name="twitter:site" content="@4uffin">
+  <meta name="twitter:title" content="Duffin's Hub">
+  <meta name="twitter:description" content="Duffin's Hub is a collection of web-based projects created by Duffin. Explore various projects related to web development and more.">
+  <meta name="twitter:image" content="https://duffin.neocities.org/images/duffinshubfavicon.png">
+  <meta name="twitter:url" content="https://duffin.neocities.org">
 
-  <!-- Internal CSS styles -->
+  <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/duffinshubfavicon.png">
+  <title>Duffin's Hub</title>
+
+  <!-- Internal stylesheet -->
   <style>
-    /* Styling for links */
-    a:link {
-      text-decoration: none;
-    }
-
-    a:visited {
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: blue;
-    }
-
-    a:active {
-      text-decoration: underline;
-      color: blue;
-    }
-
-    /* Resetting default margin for the body */
+    /* Styles for the body */
     body {
-      margin: 0px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* Ensure the body takes up at least the full height of the viewport */
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
     }
 
-    /* Header styling */
-    .duffinshubHeader {
+    /* Styles for the header */
+    header {
       background-color: #3498db;
       color: #fff;
       padding: 1rem;
       text-align: center;
     }
 
-    .duffinshubHeaderLogo {
-      font-family: 'Arial', sans-serif;
+    /* Styles for header h1 */
+    header h1 {
       margin: 0;
       /* Remove default margin to avoid spacing */
     }
 
-    #duffinshubHeaderLogoLink {
-      color: #ffffff;
-      text-decoration: none;
-    }
-
-    .duffinshubHeaderTagline {
-      font-family: 'Arial', sans-serif;
+    /* Styles for header p */
+    header p {
       font-size: 0.8rem;
       /* Adjust the font size as needed */
       opacity: 0.7;
       /* Adjust the opacity for a faded look (1 is fully opaque, 0 is fully transparent) */
     }
 
-    /* Styles for expand button */
-    .ExpandButton {
-      background: linear-gradient(to bottom, White 0%, LightGrey 50%);
-      color: Black;
-      border-radius: 5px;
-    }
-
-    /* Hover styles for expand button */
-    .ExpandButton:hover {
-      background: linear-gradient(to bottom, White 0%, LightGrey 20%);
-      color: Green;
-    }
-
-    /* Header elements */
-    .header {
+    /* Styles for the navigation */
+    nav {
       display: flex;
-      justify-content: space-between;
-      background: linear-gradient(to bottom, White 0%, LightGrey 50%);
-      margin: 8px;
-      box-shadow: 4px 4px Grey;
-      border-radius: 5px;
+      margin: 20px;
     }
 
-    /* Styling for Tib logo */
-    .Tiblogo {
-      text-align: left;
-      font-family: Verdana;
-      background-color: LightBlue;
-      border-radius: 5px;
-      padding-left: 5px;
-      padding-right: 5px;
-      margin-left: 30px;
-      margin-right: 10px;
+    /* Styles for navigation ul */
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: auto;
+      /* Add this line */
     }
 
-    .Tiblogo:hover {
+    /* Styles for navigation li */
+    nav li {
+      margin-right: 16px;
+    }
+
+    /* Styles for menu item one */
+    #menuitem {
+      color: #ffffff;
+      text-decoration: None;
+    }
+
+    /* Hover styles for menu item one */
+    #menuitem:hover {
+      font-weight: bold;
+    }
+
+    /* Styles for the main content */
+    main {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Styles for individual projects */
+    .project {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Styles for project covers */
+    .project-cover {
+      width: 100%;
+      /* Ensure the image takes the full width of its container */
+      height: 300px;
+      /* Set the desired height for the cover art */
+      object-fit: cover;
+      /* Maintain aspect ratio and cover the entire container */
+      transition: transform 0.3s ease-in-out;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Hover styles for project covers */
+    .project-cover:hover {
+      transform: scale(1.1);
       cursor: pointer;
+      /* Adjust the scale factor based on your preference */
     }
 
-    #Tiblogolink {
-      color: Black;
-      text-decoration: None;
+    /* Styles for project descriptions */
+    .project-description {
+      margin-bottom: 1rem;
     }
 
-    /* Styling for menu buttons */
-    .menubuttons {
-      font-family: Verdana;
-      margin: 30px;
-      margin-right: auto;
+    /* Styles for the created line */
+    .created-line {
+      font-size: 0.8rem;
+      /* Adjust the font size as needed */
     }
 
-    /* Styling for submit URL button */
-    .SubmitURLButton {
-      background: linear-gradient(to bottom, White 0%, LightGrey 50%);
-      border-radius: 5px;
-    }
-
-    .SubmitURLButton:hover {
-      background: linear-gradient(to bottom, White 0%, LightGrey 20%);
-    }
-
-    /* Styling for links in the footer */
-    #SubmitURLLink {
-      color: Black;
-      text-decoration: None;
-    }
-
-    #SubmitURLLink:hover {
-      color: Green;
-    }
-
-    /* Styling for the about Tib section */
-    .aboutTib {
+    /* Styles for the footer */
+    footer {
+      background-color: #333;
+      color: #fff;
       text-align: center;
-      font-family: Verdana;
-      color: Green;
-      background: linear-gradient(to bottom, White 0%, LightGrey 50%);
-      border-radius: 5px;
-      box-shadow: 4px 4px Grey;
-      margin-left: 20px;
-      margin-right: 20px;
-      margin-top: 30px;
-      margin-bottom: 30px;
-      padding-top: 1px;
-      padding-bottom: 2px;
-      padding-left: 1px;
-      padding-right: 1px;
+      padding: 1rem;
+      margin-top: auto;
+      /* Push the footer to the bottom of the viewport */
     }
 
-    .aboutTibDisclaimer {
-      color: Red;
-      margin-left: 20px;
-      margin-right: 20px;
-    }
-
-    /* Styling for search statistics */
-    .SearchStats {
-      text-align: left;
-      font-family: Verdana;
-      color: Black;
-    }
-
-    /* Styling for all-time statistics */
-    .AllTimeStatsTitle {
-      text-align: left;
-      font-family: Verdana;
-      color: Black;
-    }
-
-    .AllTimeStatsDesc {
-      text-align: left;
-      font-family: Verdana;
-    }
-
-    /* Styling for links in statistics */
-    #statQuery {
-      color: Black;
-      text-decoration: none;
-    }
-
-    #statQuery:hover {
-      color: Green;
-    }
-
-    /* Styling for images in statistics */
-    .AllTimeStatsImg {
-      text-align: center;
-    }
-
-    /* Dropdown menu button settings */
-    .SubmitButton {
-      color: Green;
-      background-color: White;
-      font-family: Verdana;
-    }
-
-    .TitleMenuButton {
-      color: Black;
-      background-color: White;
-      font-family: Verdana;
-    }
-
-    .OptionMenuButton {
-      color: Grey;
-      background-color: White;
-      font-family: Verdana;
-    }
-
-    .RewardsMenuButton {
-      color: Gold;
-      background-color: White;
-      font-family: Verdana;
-    }
-
-    .TheHubMenuButton {
-      color: Green;
-      background-color: Black;
-      font-family: Verdana;
+    /* Media query for responsive design */
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
+
 </head>
 
-<body style="background-color: Lightblue;">
+<body>
 
-  <!-- Duffin's Hub Header -->
-  <div class="duffinshubHeader">
-    <h1 class="duffinshubHeaderLogo"><a href="https://duffin.neocities.org/" id="duffinshubHeaderLogoLink">Duffin's Hub</a></h1>
-    <p class="duffinshubHeaderTagline">for Web-Based-Things</p>
+  <!-- Header section -->
+  <header>
+    <!-- Title and tagline -->
+    <h1>Duffin's Hub</h1>
+    <p>for Web-Based-Things</p>
 
-    <!-- Dropdown menu for Tib options -->
-    <select onChange="window.location.href=this.value" class="ExpandButton">
-      <option value="">Expand</option>
-      <option value="" class="TitleMenuButton">-----------</option>
-      <option value="" class="TitleMenuButton">~ Tib (TinyWeb) Options ~</option>
-      <option value="" class="TitleMenuButton">-----------</option>
-      <option value="https://forms.gle/Ydgf31NzDwLL1xnW6" class="OptionMenuButton">Submit URL!</option>
-      <option value="https://forms.gle/KucJJb5SK7XNsoEz6" class="OptionMenuButton">Give Feedback</option>
-      <option value="https://drive.google.com/drive/folders/1y6eTrQEPHqUT1NB2YhXauztCzvb2-zGX?usp=sharing" class="OptionMenuButton">Open-Source</option>
-      <option value="" class="TitleMenuButton">-----------</option>
-    </select>
-  </div>
-
-  <!-- Header section with Tib logo and menu buttons -->
-  <div class="header">
-    <h1 class="Tiblogo"><a href="https://duffin.neocities.org/tinyweb/home" id="Tiblogolink">Tib</a></h1>
-
-    <!-- Navigation menu buttons -->
-    <nav class="menubuttons">
-      <button class="SubmitURLButton" title="Join the community!"><a href="https://forms.gle/dDxZ8R7uJf126R6c6" id="SubmitURLLink">Submit URL!</a></button>
-      <button class="SubmitURLButton" title="I want to hear from you :)"><a href="https://forms.gle/KucJJb5SK7XNsoEz6" id="SubmitURLLink">Give Feedback</a></button>
-      <button class="SubmitURLButton" title="Learn more about Tib"><a href="https://github.com/4uffin/projectsspace/tree/main/tinyweb" id="SubmitURLLink">Open-Source</a></button>
+    <!-- Navigation section -->
+    <nav>
+      <!-- List of menu items -->
+      <ul>
+        <li><a href="https://codepen.io/4uffin" id="menuitem" title="Codepen">Codepen</a></li>
+        <li><a href="https://github.com/4uffin/projectsspace" id="menuitem" title="GitHub">GitHub</a></li>
+      </ul>
     </nav>
-  </div>
 
-  <!-- About Tib section -->
-  <div class="aboutTib">
-    <h2>How to use Tib</h2>
-    <p>Search your interests, and find user submitted URL's that match that search!</p>
-    <p>
-      <font color="Red">NOTE: Do not submit URL's that may contain personal information!</font>
-    </p>
-  </div>
+  </header>
 
-  <!-- Search statistics -->
-  <p class="SearchStats">Safe Search: <font color="Green">Off</font> | URLs submitted: <font color="Green">316</font>
-  </p>
+  <!-- Main content section -->
+  <main>
 
-  <!-- Google custom search engine -->
-  <script async src="https://cse.google.com/cse.js?cx=b658bf6888ab743b0"></script>
-  <div class="gcse-search"></div>
+    <section class="project">
+      <!-- Cover art for Project section -->
+      <a href="https://duffin.neocities.org/shuffle/play"><img src="https://duffin.neocities.org/images/ShuffleIcon.png" alt="Shuffle Cover Art" title="Shuffle" class="project-cover"></a>
+      <!-- Title for Project -->
+      <h2 title="Shuffle">Shuffle</h2>
+      <!-- Description for Project -->
+      <p class="project-description">Discover songs by Shuffling them, randomly.</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: April 20, 2024">Created: April 20, 2024</p>
+    </section>
 
-  <!-- All-time statistics -->
-  <div class="statsTib">
-    <h2 class="AllTimeStatsTitle">Most Searched:</h2>
-    <p class="AllTimeStatsDesc">1. <a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=youtube" id="statQuery">youtube</a></p>
-    <p class="AllTimeStatsDesc">2. <a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=twitter" id="statQuery">twitter</a></p>
-    <p class="AllTimeStatsDesc">3. <a href="https://duffin.neocities.org/tinyweb/home#gsc.tab=0&gsc.sort=&gsc.q=reddit%20apollo%20api" id="statQuery">reddit apollo api</a></p>
-  </div>
+    <section class="project">
+      <!-- Cover art for Project section -->
+      <a href="https://duffin.neocities.org/audioplayer/listen"><img src="https://duffin.neocities.org/images/audioplayericon.png" alt="Audio Player Cover Art" title="Audio Player" class="project-cover"></a>
+      <!-- Title for Project -->
+      <h2 title="Audio Player">Audio Player</h2>
+      <!-- Description for Project -->
+      <p class="project-description">A multi-format audio player, with some cool features.</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: April 18, 2024">Created: April 18, 2024</p>
+    </section>
+
+    <section class="project">
+      <!-- Cover art for Project section -->
+      <a href="https://duffin.neocities.org/clock/home"><img src="https://duffin.neocities.org/images/Clock.png" alt="Simple Customizable Clock Cover Art" title="Simple Customizable Clock" class="project-cover"></a>
+      <!-- Title for Project -->
+      <h2 title="Simple Customizable Clock">Simple Customizable Clock</h2>
+      <!-- Description for Project -->
+      <p class="project-description">A simple clock, that just so happens to have some customization options.</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: April 8, 2024">Created: April 8, 2024</p>
+    </section>
+
+    <section class="project">
+      <!-- Cover art for Project section -->
+      <a href="https://duffin.neocities.org/localstorage/new"><img src="https://duffin.neocities.org/images/foldericon.png" alt="Local Storage Cover Art" title="Local Storage" class="project-cover"></a>
+      <!-- Title for Project -->
+      <h2 title="Local Storage">Local Storage</h2>
+      <!-- Description for Project -->
+      <p class="project-description">Use your browser's local storage with some simple HTML/CSS UI. Use this as temporary storage.</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: August 29, 2023">Created: August 29, 2023</p>
+    </section>
+
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project section -->
+      <img src="https://duffin.neocities.org/images/painticon1.png" alt="Paint Cover Art" title="Paint" class="project-cover">
+      <!-- Title for Project -->
+      <h2 title="Paint">Paint</h2>
+      <!-- Description for Project -->
+      <p class="project-description">I was bored and curious. So here's a canvas to paint on!</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: August 5, 2023">Created: August 5, 2023</p>
+    </section>
+
+    <section class="project">
+      <!-- Cover art for Project section -->
+      <a href="https://duffin.neocities.org/utubesearch/home"><img src="https://duffin.neocities.org/images/utubesearchicon.png" alt="UTube Search Cover Art" title="UTube Search" class="project-cover"></a>
+      <!-- Title for Project -->
+      <h2 title="UTube Search">UTube Search</h2>
+      <!-- Description for Project -->
+      <p class="project-description">I, along with many, don't like YouTube's built-in search. So here's a dedicated search engine for YouTube. (powered by GCSE)</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: August 3, 2023">Created: August 3, 2023</p>
+    </section>
+
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project section -->
+      <img src="https://duffin.neocities.org/images/randomutubeicon1.png" alt="Random UTube Cover Art" title="Random UTube" class="project-cover">
+      <!-- Title for Project -->
+      <h2 title="Random UTube">Random UTube</h2>
+      <!-- Description for Project -->
+      <p class="project-description">YouTube, but randomized. Basically less control than YouTube Shorts.</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: May 9, 2023">Created: May 9, 2023</p>
+    </section>
+
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project section -->
+      <img src="https://duffin.neocities.org/images/sandboxmodeicon.png" alt="Sandbox Mode Cover Art" title="Sandbox Mode" class="project-cover">
+      <!-- Title for Project -->
+      <h2 title="Sandbox Mode">Sandbox Mode</h2>
+      <!-- Description for Project -->
+      <p class="project-description">A webpage creation sandbox, master your web development skills! | Your imagination is your limitation. (i think)</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: May 4, 2023">Created: May 4, 2023</p>
+    </section>
+
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project section -->
+      <img src="https://duffin.neocities.org/images/thebuttonicon2.png" alt="The Button Cover Art" title="The Button" class="project-cover">
+      <!-- Title for Project -->
+      <h2 title="The Button">The Button</h2>
+      <!-- Description for Project -->
+      <p class="project-description">Literally just a button, click it if you want to.</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: October 1, 2022">Created: October 1, 2022</p>
+    </section>
+
+    <section class="project" style="display: none;">
+      <!-- Cover art for Project section -->
+      <img src="https://duffin.neocities.org/images/searchurlicon.png" alt="Search URL Cover Art" title="Search URL" class="project-cover">
+      <!-- Title for Project -->
+      <h2 title="Search URL">Search URL</h2>
+      <!-- Description for Project -->
+      <p class="project-description">An old style search engine. (powered by GCSE)</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: September 8, 2022">Created: September 8, 2022</p>
+    </section>
+
+    <section class="project">
+      <!-- Cover art for Project section -->
+      <a href="https://duffin.neocities.org/tinyweb/home"><img src="https://duffin.neocities.org/images/tiblogo[1].PNG" alt="Tib (TinyWeb) Cover Art" title="Tib (TinyWeb)" class="project-cover"></a>
+      <!-- Title for Project -->
+      <h2 title="Tib (TinyWeb)">Tib (TinyWeb)</h2>
+      <!-- Description for Project -->
+      <p class="project-description">A search engine powered by its users. Submit URL's to make the search smarter. (powered by GCSE)</p>
+      <!-- Created line for Project -->
+      <p class="created-line" title="Created: March 3, 2022">Created: March 3, 2022</p>
+    </section>
+
+    <!-- Add more project sections as needed -->
+
+  </main>
+
+  <!-- Footer section -->
+  <footer>
+    <!-- Copyright information -->
+    <p>2024 Duffin's Hub. Hosted via <a href="https://neocities.org/site/duffin" style="color: #fff; text-decoration: None;">Neocities.org</a></p>
+  </footer>
 
 </body>
 
