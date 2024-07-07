@@ -2,90 +2,103 @@
 <html lang="en">
 
 <head>
+
+  <!-- Search Engine meta tags -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Findr - A blank online directory for searching various resources.">
+  <meta name="description" content="Findr - A blank online directory for searching various resources, with basic styling.">
   <meta name="keywords" content="Findr, search, directory, online directory">
   <meta name="author" content="Duffin">
   <meta name="robots" content="index, follow">
+
+  <!-- Open Graph meta tags for better sharing on social media -->
   <meta property="og:title" content="Findr">
   <meta property="og:description" content="An online directory for searching various resources.">
   <meta property="og:image" content="https://duffin.neocities.org/images/duffinshubfavicon.png">
   <meta property="og:url" content="https://duffin.neocities.org/tinyweb/blanktest">
+
+  <!-- Twitter Card meta tags for better sharing on Twitter -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Findr">
   <meta name="twitter:description" content="An online directory for searching various resources.">
   <meta name="twitter:image" content="https://duffin.neocities.org/images/duffinshubfavicon.png">
+
+  <!-- Favicon link -->
   <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/duffinshubfavicon.png">
-  <title>[Blank] Findr - A blank online directory.</title>
+
+  <!-- Title of the webpage -->
+  <title>Findr | Blank</title>
+
+  <style>
+    /* Placeholder for CSS styles */
+  </style>
 </head>
 
 <body>
+  <!-- Main header with link to home -->
   <h1><a href="https://duffin.neocities.org/tinyweb/blanktest" id="title-link" title="Findr">Findr</a></h1>
+
+  <!-- Search container with input and button -->
   <div class="search-container">
     <input type="text" id="searchInput" placeholder="Enter your search query" title="Search" onkeydown="handleKeyPress(event)">
     <button onclick="search()" title="Search">Search</button>
   </div>
+
+  <!-- Container for search results -->
   <ul class="results" id="searchResults"></ul>
 
+  <!-- Container for pagination buttons -->
   <div class="pagination" id="pagination"></div>
 
+  <!-- Horizontal rule for separation -->
   <hr>
 
+  <!-- Welcome message section -->
   <h3>Welcome to Findr</h3>
   <p>This is an online directory. Feel free to search and see what you can find!<br><br>(Note: Findr should NOT be used as a search engine, as it's an under-development research project. Results will be missing.)</p>
 
+  <!-- External JavaScript file -->
   <script src="https://duffin.neocities.org/tinyweb/testindex.js"></script>
   <script>
     // Define variables for pagination
     let currentPage = 1;
     const resultsPerPage = 10;
-
     // Function to handle key press event
     function handleKeyPress(event) {
       if (event.key === "Enter") {
         search();
       }
     }
-
     // Function to perform search
     function search() {
       const query = document.getElementById('searchInput').value.toLowerCase();
       const searchResults = document.getElementById('searchResults');
       const pagination = document.getElementById('pagination');
-
       // Clear previous search results and pagination
       searchResults.innerHTML = '';
       pagination.innerHTML = '';
-
       // Filter indexed pages based on query
       let filteredPages = indexedPages.filter(page =>
         page.title.toLowerCase().includes(query) ||
         page.description.toLowerCase().includes(query)
       );
-
       // Shuffle the results if the query is blank and limit to 5 items
       if (query.trim() === '') {
         shuffle(filteredPages);
         filteredPages = filteredPages.slice(0, 5);
       }
-
       // Calculate total pages
       const totalPages = Math.ceil(filteredPages.length / resultsPerPage);
-
       // Display search results for the current page
       displayResults(filteredPages, totalPages);
     }
-
     // Function to display search results for a specific page
     function displayResults(filteredPages, totalPages) {
       const searchResults = document.getElementById('searchResults');
       const pagination = document.getElementById('pagination');
-
       // Calculate start and end index for current page
       const startIndex = (currentPage - 1) * resultsPerPage;
       const endIndex = Math.min(startIndex + resultsPerPage, filteredPages.length);
-
       // Display search results for current page
       for (let i = startIndex; i < endIndex; i++) {
         const page = filteredPages[i];
@@ -104,7 +117,6 @@
         });
         searchResults.appendChild(li);
       }
-
       // Display pagination buttons
       if (currentPage > 1) {
         const lastPageButton = document.createElement('button');
@@ -115,7 +127,6 @@
         });
         pagination.appendChild(lastPageButton);
       }
-
       if (currentPage < totalPages) {
         const nextPageButton = document.createElement('button');
         nextPageButton.textContent = 'Next Page';
@@ -126,7 +137,6 @@
         pagination.appendChild(nextPageButton);
       }
     }
-
     // Function to shuffle an array
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -134,7 +144,6 @@
         [array[i], array[j]] = [array[j], array[i]];
       }
     }
-
     // Add event listener for Enter key press
     document.getElementById('searchInput').addEventListener('keydown', handleKeyPress);
   </script>
