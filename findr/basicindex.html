@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Search Engine meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Findr - An online directory for searching various resources, with basic styling.">
+  <meta name="keywords" content="Findr, directory, search, online, web directory">
+  <meta name="author" content="Duffin">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph meta tags for better sharing on social media -->
+  <meta property="og:title" content="Findr | Basic">
+  <meta property="og:description" content="An online directory for searching various resources, with basic styling.">
+  <meta property="og:image" content="https://duffin.neocities.org/images/duffinshubfavicon.png">
+  <meta property="og:url" content="https://duffin.neocities.org/tinyweb/test">
+
+  <!-- Twitter Card meta tags for better sharing on Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Findr | Basic">
+  <meta name="twitter:description" content="An online directory for searching various resources, with basic styling.">
+  <meta name="twitter:image" content="https://duffin.neocities.org/images/duffinshubfavicon.png">
+
+  <!-- Favicon link -->
+  <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/duffinshubfavicon.png">
+
+  <!-- Page Title -->
+  <title>Findr | Basic</title>
+  <style>
+    /* Basic styling for the body */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 20px;
+      padding: 0;
+      background-color: #f2f2f2;
+      /* Light gray background */
+      color: #333;
+      /* Dark gray text */
+    }
+
+    /* Styling for the main title */
+    h1 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #007bff;
+      /* Blue title */
+    }
+
+    /* Styling for the title link */
+    #title-link {
+      color: #000;
+      text-decoration: none;
+    }
+
+    /* Styling for the search container */
+    .search-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 5px;
+      background-color: White;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    /* Hover effect styles for the search container */
+    .search-container:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      /* Add a shadow on hover */
+      border: 1px solid #000;
+      transform: translateY(-2px);
+      /* Move the container slightly up */
+    }
+
+    /* Styling for the search input field */
+    input[type="text"] {
+      flex: 1;
+      padding: 12px;
+      margin-right: 10px;
+      border-radius: 6px;
+      border: 1px solid White;
+      box-sizing: border-box;
+    }
+
+    /* Remove outline on focus */
+    input[type="text"]:focus {
+      outline: none;
+      /* Darker blue border on focus */
+    }
+
+    /* Styling for the search button */
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      /* Smooth transition */
+    }
+
+    /* Hover effect for the search button */
+    button:hover {
+      background-color: #0056b3;
+      /* Darker blue on hover */
+    }
+
+    /* Styling for the results list */
+    .results {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    /* Styling for each result item */
+    .result-item {
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 15px;
+      background-color: #fff;
+      /* White background */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      /* Smooth transition */
+    }
+
+    /* Hover effect for each result item */
+    .result-item:hover {
+      background-color: #f2f2f2;
+      /* Light gray background on hover */
+    }
+
+    /* Styling for the result title */
+    .result-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    /* Hover effect for the result title */
+    .result-title:hover {
+      text-decoration: Underline;
+    }
+
+    /* Styling for the result URL */
+    .result-url {
+      color: #007bff;
+      margin-bottom: 8px;
+      text-decoration: none;
+    }
+
+    /* Styling for the result description */
+    .result-description {
+      color: #666;
+    }
+
+    /* Styling for the pagination section */
+    .pagination {
+      margin-top: 20px;
+    }
+
+    /* Styling for the pagination buttons */
+    .pagination button {
+      margin-right: 5px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      /* Smooth transition */
+    }
+
+    /* Hover effect for the pagination buttons */
+    .pagination button:hover {
+      background-color: #0056b3;
+      /* Darker blue on hover */
+    }
+
+    /* Styling for the no results message */
+    .no-results {
+      font-size: 18px;
+      font-style: italic;
+      color: #888;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Main Title -->
+  <h1><a href="https://duffin.neocities.org/tinyweb/test" id="title-link" title="Findr">Findr</a></h1>
+
+  <!-- Search Container -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Enter your search query" title="Search" onkeydown="handleKeyPress(event)">
+    <button onclick="search()" title="Search">Search</button>
+  </div>
+
+  <!-- Search Results List -->
+  <ul class="results" id="searchResults"></ul>
+
+  <!-- Pagination Container -->
+  <div class="pagination" id="pagination"></div>
+
+  <hr>
+
+  <!-- Welcome Message -->
+  <h3>Welcome to Findr</h3>
+  <p>This is an online directory. Feel free to search and see what you can find!<br><br>(Note: Findr should NOT be used as a search engine, as it's an under-development research project. Results will be missing.)</p>
+
+  <!-- External JavaScript file -->
+  <script src="https://duffin.neocities.org/tinyweb/testindex.js"></script>
+
+  <!-- Inline JavaScript -->
+  <script>
+    // Define variables for pagination
+    let currentPage = 1;
+    const resultsPerPage = 10;
+    // Function to handle key press event
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        search();
+      }
+    }
+    // Function to perform search
+    function search() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const searchResults = document.getElementById('searchResults');
+      const pagination = document.getElementById('pagination');
+      // Clear previous search results and pagination
+      searchResults.innerHTML = '';
+      pagination.innerHTML = '';
+      // Filter indexed pages based on query
+      let filteredPages = indexedPages.filter(page =>
+        page.title.toLowerCase().includes(query) ||
+        page.description.toLowerCase().includes(query)
+      );
+      // Shuffle the results if the query is blank and limit to 5 items
+      if (query.trim() === '') {
+        filteredPages = shuffle(filteredPages).slice(0, 5);
+      }
+      // Calculate total pages
+      const totalPages = Math.ceil(filteredPages.length / resultsPerPage);
+      // Display search results for the current page
+      displayResults(filteredPages, totalPages);
+    }
+    // Function to display search results for a specific page
+    function displayResults(filteredPages, totalPages) {
+      const searchResults = document.getElementById('searchResults');
+      const pagination = document.getElementById('pagination');
+      // Calculate start and end index for current page
+      const startIndex = (currentPage - 1) * resultsPerPage;
+      const endIndex = Math.min(startIndex + resultsPerPage, filteredPages.length);
+      // Display search results for current page
+      if (filteredPages.length === 0) {
+        // If no results found
+        const noResultsMessage = document.createElement('li');
+        noResultsMessage.classList.add('no-results');
+        noResultsMessage.textContent = 'No results found.';
+        searchResults.appendChild(noResultsMessage);
+      } else {
+        // If results found
+        for (let i = startIndex; i < endIndex; i++) {
+          const page = filteredPages[i];
+          const li = document.createElement('li');
+          li.classList.add('result-item');
+          li.innerHTML = `
+              <div class="result-title" title="${page.title}">${page.title}</div>
+              <div class="result-url" title="${page.url}">${page.url}</div>
+              <div class="result-description" title="${page.description}">${page.description}</div>
+          `;
+          // Add click event listener to redirect user to URL
+          li.addEventListener('click', () => {
+            window.open(page.url, '_blank');
+          });
+          searchResults.appendChild(li);
+        }
+      }
+      // Display pagination buttons
+      if (currentPage > 1) {
+        const lastPageButton = document.createElement('button');
+        lastPageButton.textContent = 'Last Page';
+        lastPageButton.title = 'Go to Last Page';
+        lastPageButton.addEventListener('click', () => {
+          currentPage--;
+          search();
+        });
+        pagination.appendChild(lastPageButton);
+      }
+      if (currentPage < totalPages) {
+        const nextPageButton = document.createElement('button');
+        nextPageButton.textContent = 'Next Page';
+        nextPageButton.title = 'Go to Next Page';
+        nextPageButton.addEventListener('click', () => {
+          currentPage++;
+          search();
+        });
+        pagination.appendChild(nextPageButton);
+      }
+    }
+    // Function to shuffle an array
+    function shuffle(array) {
+      let currentIndex = array.length,
+        randomIndex;
+      // While there remain elements to shuffle...
+      while (currentIndex !== 0) {
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+        // And swap it with the current element.
+        [array[currentIndex], array[randomIndex]] = [
+          array[randomIndex], array[currentIndex]
+        ];
+      }
+      return array;
+    }
+    // Add event listener for Enter key press
+    document.getElementById('searchInput').addEventListener('keydown', handleKeyPress);
+  </script>
+</body>
+
+</html>
