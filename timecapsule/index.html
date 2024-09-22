@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Capsule</title>
+  <link rel="icon" type="image/x-icon" href="https://duffin.neocities.org/images/Time%20Capsule%20-%20Icon.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .result {
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Time Capsule</h1>
+  <label for="eventSelect">Events:</label>
+  <select id="eventSelect" onchange="setEvent()">
+    <option value="covid">COVID-19</option> <!-- Moved COVID-19 to the top -->
+    <option value="911">9/11</option> <!-- Moved 9/11 down -->
+    <option value="iphone">Original iPhone Announcement</option>
+    <option value="moon">USA Moon Landing</option>
+    <option value="web">World Wide Web Launch</option>
+    <option value="chatgpt">ChatGPT Public Release</option>
+    <option value="z3">Z3 Computer Completion</option>
+    <option value="pong">Pong Release</option>
+    <option value="basketball">Basketball Invented</option>
+  </select>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    let eventDate; // Holds the selected event's date and time
+    let eventMessage; // Holds the message for the event
+    let interval; // Stores the interval ID
+    function updateTimer() {
+      const currentDate = new Date();
+      const timeDifference = currentDate - eventDate;
+      // Extracting years, months, weeks, days, hours, minutes, and seconds
+      const years = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365));
+      const remainingDays = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+      const months = Math.floor(remainingDays / 30);
+      const days = remainingDays % 30;
+      const weeks = Math.floor(days / 7);
+      const remainingDaysFinal = days % 7;
+      const hours = currentDate.getHours();
+      const minutes = currentDate.getMinutes();
+      const seconds = currentDate.getSeconds();
+      document.getElementById('result').innerText =
+        `${years} years, ${months} months, ${weeks} weeks, ${remainingDaysFinal} days, ` +
+        `${hours} hours, ${minutes} minutes, and ${seconds} seconds ${eventMessage}.`;
+    }
+
+    function setEvent() {
+      const eventSelect = document.getElementById('eventSelect').value;
+      switch (eventSelect) {
+        case 'covid':
+          eventDate = new Date(Date.UTC(2020, 2, 11, 15, 0, 0)); // COVID-19
+          eventMessage = "since the COVID-19 pandemic began";
+          break;
+        case '911':
+          eventDate = new Date(Date.UTC(2001, 8, 11, 14, 28, 0)); // 9/11
+          eventMessage = "since 9/11 occurred";
+          break;
+        case 'iphone':
+          eventDate = new Date(Date.UTC(2007, 0, 9, 17, 41, 0)); // iPhone Announcement
+          eventMessage = "since Steve Jobs revealed the original iPhone";
+          break;
+        case 'moon':
+          eventDate = new Date(Date.UTC(1969, 6, 21, 2, 56, 0)); // Moon Landing
+          eventMessage = "since the USA landed on the moon";
+          break;
+        case 'web':
+          eventDate = new Date(Date.UTC(1991, 7, 6, 12, 0, 0)); // Web Launch
+          eventMessage = "since the World Wide Web was launched";
+          break;
+        case 'chatgpt':
+          eventDate = new Date(Date.UTC(2022, 10, 30, 17, 0, 0)); // ChatGPT Release
+          eventMessage = "since ChatGPT was publicly released";
+          break;
+        case 'z3':
+          eventDate = new Date(Date.UTC(1941, 11, 12, 0, 0, 0)); // Z3 Completion
+          eventMessage = "since the Z3, the first programmable computer, was created";
+          break;
+        case 'pong':
+          eventDate = new Date(Date.UTC(1972, 11, 29, 0, 0, 0)); // Pong Release
+          eventMessage = "since the release of Pong, the first commercially successful video game";
+          break;
+        case 'basketball':
+          eventDate = new Date(Date.UTC(1891, 11, 21, 0, 0, 0)); // Basketball Invention
+          eventMessage = "since basketball was invented";
+          break; // Added Basketball case
+      }
+      // Clear any existing interval
+      if (interval) {
+        clearInterval(interval);
+      }
+      // Update the timer immediately and set the interval for real-time updates
+      updateTimer();
+      interval = setInterval(updateTimer, 1000);
+    }
+    // Set the initial event when the page loads
+    window.onload = setEvent;
+  </script>
+
+</body>
+
+</html>
