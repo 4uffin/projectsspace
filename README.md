@@ -9,6 +9,12 @@ If you'd like to help me with my projects (ex. you find something that could be 
 # Projects List - Ease of access
 *(Newest to Oldest)*
 
+- **Time Capsule:** [Visit](https://duffin.neocities.org/timecapsule)
+  An interactive webpage that allows users to explore historical milestones, tracking how much time has passed since significant events such as the moon landing, the release of the iPhone, and the invention of basketball. All in real-time.
+
+- **RandomURL:** [Visit](https://duffin.neocities.org/randomurl)
+  A fun and engaging tool that generates random, algorithmically created URLs with every click. Users can explore a wide range of domains, paths, and query parameters, with some URLs featuring subdomains and special characters.
+
 - **Shuffle:** [Visit](https://duffin.neocities.org/shuffle/play)
   A dynamic web application designed to provide users with a spontaneous and immersive music discovery experience. By leveraging the power of randomization, users can explore a vast library of songs sourced from various artists and genres.
 
