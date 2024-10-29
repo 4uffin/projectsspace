@@ -162,7 +162,8 @@
 
     <!-- Available Modules List -->
     <div class="task-list" aria-labelledby="available-modules">
-      <h2 id="available-modules">Available Modules</h2>
+      <h2 id="available-modules">Available Modules (<span id="module-count">0</span>)</h2>
+
       <ul id="module-list" role="list" tabindex="0" aria-label="List of available modules"></ul>
     </div>
   </div>
@@ -291,6 +292,7 @@
       const inputPanelEl = document.getElementById('input-panel');
       const outputPanelEl = document.getElementById('output-panel');
       const runModuleBtn = document.getElementById('run-module-btn');
+      const moduleCountEl = document.getElementById('module-count'); // Get the module count element
       let selectedModule = null;
       // Populate Module List
       modules.forEach((mod, index) => {
@@ -300,6 +302,8 @@
         listItem.addEventListener('click', () => selectModule(index));
         moduleListEl.appendChild(listItem);
       });
+      // Update the module count display
+      moduleCountEl.textContent = modules.length;
       // Select Module Function
       function selectModule(index) {
         selectedModule = modules[index];
