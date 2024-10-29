@@ -7,6 +7,7 @@
   <title>ModApp - Modular Application</title>
   <!-- Embedded CSS -->
   <style>
+    /* General Styles */
     body {
       font-family: 'Arial', sans-serif;
       background-color: #f0f0f0;
@@ -20,6 +21,7 @@
       transition: background-color 0.3s;
     }
 
+    /* Container Styles */
     .container {
       background-color: #fff;
       padding: 30px;
@@ -30,6 +32,7 @@
       transition: transform 0.3s;
     }
 
+    /* Header Styles */
     h1 {
       color: #007bff;
       text-align: center;
@@ -49,6 +52,7 @@
       margin-bottom: 10px;
     }
 
+    /* Task List, Task Panel, and Task Runner Styles */
     .task-list,
     .task-panel,
     .task-runner {
@@ -60,6 +64,7 @@
       transition: opacity 0.3s;
     }
 
+    /* Module List Styles */
     #module-list {
       list-style-type: none;
       padding: 0;
@@ -80,6 +85,7 @@
       transform: scale(1.02);
     }
 
+    /* Input Panel and Button Styles */
     #input-panel {
       margin-bottom: 20px;
     }
@@ -100,6 +106,7 @@
       transform: translateY(-2px);
     }
 
+    /* Output Panel Styles */
     #output-panel {
       margin-top: 20px;
       padding: 10px;
@@ -113,6 +120,7 @@
       display: none;
     }
 
+    /* Responsive Styles */
     @media (max-width: 600px) {
       .container {
         padding: 20px;
@@ -132,9 +140,11 @@
 
 <body>
   <div class="container" role="main">
+    <!-- Main Title and Label -->
     <h1>ModApp</h1>
     <label for="module-list" aria-label="Modular Application Overview">Modular Application</label>
 
+    <!-- Task Panel -->
     <div class="task-panel" aria-labelledby="task-details">
       <h2>Selected Module</h2>
       <div id="task-details" aria-live="polite" aria-atomic="true">
@@ -142,6 +152,7 @@
       </div>
     </div>
 
+    <!-- Task Runner Section -->
     <div class="task-runner" aria-labelledby="execute-module">
       <h2 id="execute-module">Execute Module</h2>
       <div id="input-panel" aria-label="Input Panel for Module Parameters"></div>
@@ -149,6 +160,7 @@
       <div id="output-panel" class="hidden" aria-live="polite" aria-atomic="true"></div>
     </div>
 
+    <!-- Available Modules List -->
     <div class="task-list" aria-labelledby="available-modules">
       <h2 id="available-modules">Available Modules</h2>
       <ul id="module-list" role="list" tabindex="0" aria-label="List of available modules"></ul>
@@ -156,7 +168,7 @@
   </div>
 
   <script>
-    // Installed Modules
+    // Installed Modules Array
     const modules = [{
         name: "Calculator",
         description: "Performs basic and advanced arithmetic operations.",
@@ -272,6 +284,7 @@
         }
       }
     ];
+    // Document Ready Event Listener
     document.addEventListener('DOMContentLoaded', () => {
       const moduleListEl = document.getElementById('module-list');
       const taskDetailsEl = document.getElementById('task-details');
@@ -279,6 +292,7 @@
       const outputPanelEl = document.getElementById('output-panel');
       const runModuleBtn = document.getElementById('run-module-btn');
       let selectedModule = null;
+      // Populate Module List
       modules.forEach((mod, index) => {
         const listItem = document.createElement('li');
         listItem.textContent = mod.name;
@@ -286,14 +300,14 @@
         listItem.addEventListener('click', () => selectModule(index));
         moduleListEl.appendChild(listItem);
       });
-
+      // Select Module Function
       function selectModule(index) {
         selectedModule = modules[index];
         taskDetailsEl.innerHTML = `<h3>${selectedModule.name}</h3><p>${selectedModule.description}</p>`;
         generateInputFields(selectedModule.parameters);
         runModuleBtn.hidden = false;
       }
-
+      // Generate Modules Interface
       function generateInputFields(parameters) {
         inputPanelEl.innerHTML = '';
         parameters.forEach(param => {
@@ -304,6 +318,7 @@
           inputPanelEl.appendChild(inputEl);
         });
       }
+      // Run Module Function
       runModuleBtn.addEventListener('click', () => {
         if (!selectedModule) return;
         const params = {};
