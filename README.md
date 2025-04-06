@@ -9,6 +9,9 @@ If you'd like to help me with my projects (ex. you find something that could be 
 # Projects List - Ease of access
 *(Newest to Oldest)*
 
+- **Notes App:** [Visit](https://duffin.neocities.org/notesapp/notes)
+  A simple, accessible notes app. It lets you create, save, delete, and pin notes, with all your data stored locally in your browser.
+
 - **Time Capsule:** [Visit](https://duffin.neocities.org/timecapsule)
   An interactive webpage that allows users to explore historical milestones, tracking how much time has passed since significant events such as the moon landing, the release of the iPhone, and the invention of basketball. All in real-time.
 
