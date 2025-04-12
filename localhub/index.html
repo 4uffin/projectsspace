@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>LocalHub</title>
+</head>
+
+<body>
+  <!-- Main Heading -->
+  <h1>LocalHub</h1>
+
+  <hr>
+
+  <!-- Stats Section -->
+  <div id="statsSection">
+    <h2>Stats</h2>
+    <!-- Displays number of repositories -->
+    <p><strong>Repositories:</strong> <span id="repoCount">0</span></p>
+    <!-- Displays total number of files across all repositories -->
+    <p><strong>Total Files:</strong> <span id="fileCount">0</span></p>
+    <!-- Displays estimated local storage usage -->
+    <p><strong>Local Storage Used:</strong> <span id="storageUsed">0</span> KB</p>
+    <!-- Button to export all data as a JSON file -->
+    <button id="exportData">Export Data</button>
+    <!-- File input to import data (accepts JSON) -->
+    <input type="file" id="importData" accept=".json">
+  </div>
+
+  <hr>
+
+  <!-- Repository List and New Repository -->
+  <div id="repoList">
+    <h2>Your Repositories</h2>
+    <!-- Unordered list to display all repositories -->
+    <ul id="repos"></ul>
+  </div>
+
+  <!-- Section to create a new repository -->
+  <div id="newRepo">
+    <h2>Create New Repository</h2>
+    <label for="repoName">Name:</label>
+    <!-- Text input for new repository name -->
+    <input type="text" id="repoName" placeholder="Repository Name">
+    <!-- Button to create a new repository -->
+    <button id="createRepo">Create Repository</button>
+  </div>
+
+  <hr>
+
+  <!-- Repository Details (Files, File Addition and Display) -->
+  <!-- This section is shown when a repository is selected -->
+  <div id="repoDetails" style="display: none;">
+    <!-- Title showing current repository name -->
+    <h2 id="repoTitle">Repository: </h2>
+
+    <!-- File List Section -->
+    <div>
+      <h3>Files</h3>
+      <!-- List of files in the selected repository -->
+      <ul id="filesList"></ul>
+    </div>
+
+    <!-- Add New File Section -->
+    <div>
+      <h3>Add New File</h3>
+      <label for="fileName">File Name:</label>
+      <!-- Input for new file name -->
+      <input type="text" id="fileName" placeholder="File Name"><br>
+      <label for="fileContent">Content:</label><br>
+      <!-- Textarea for file content -->
+      <textarea id="fileContent" rows="10" cols="50" placeholder="File Content"></textarea><br>
+      <!-- Button to add new file -->
+      <button id="addFile">Add File</button>
+      <!-- Button to save changes to an existing file (hidden by default) -->
+      <button id="saveChanges" style="display:none;">Save Changes</button>
+    </div>
+
+    <!-- File Display and Navigation -->
+    <div>
+      <!-- Button to go back to the list of repositories -->
+      <button id="backToRepos">Back to Repositories</button>
+      <h3>File Content</h3>
+      <!-- Displays the content of a selected file -->
+      <pre id="displayFileContent"></pre>
+    </div>
+  </div>
+
+  <script>
+    // Wait for the DOM to fully load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load repositories from localStorage or initialize an empty object
+      var repositories = JSON.parse(localStorage.getItem('repositories')) || {};
+      var currentEditingFile = null; // Tracks which file is being edited
+      // Save repositories back to localStorage
+      function saveRepos() {
+        localStorage.setItem('repositories', JSON.stringify(repositories));
+      }
+      // Update statistics: number of repositories, total files, and storage used
+      function updateStats() {
+        var repoCount = Object.keys(repositories).length;
+        var fileCount = 0;
+        for (var repo in repositories) {
+          fileCount += Object.keys(repositories[repo].files).length;
+        }
+        var repoData = localStorage.getItem('repositories');
+        var usedKB = repoData ? new Blob([repoData]).size / 1024 : 0;
+        document.getElementById('repoCount').textContent = repoCount;
+        document.getElementById('fileCount').textContent = fileCount;
+        document.getElementById('storageUsed').textContent = usedKB.toFixed(2);
+      }
+      // Render the list of repositories
+      function renderRepoList() {
+        var reposUl = document.getElementById('repos');
+        reposUl.innerHTML = ''; // Clear existing list
+        for (var repo in repositories) {
+          var li = document.createElement('li');
+          var link = document.createElement('a');
+          link.href = "#";
+          link.textContent = repo;
+          link.dataset.repo = repo;
+          // Open selected repository when clicked
+          link.addEventListener('click', function(e) {
+            showRepo(e.target.dataset.repo);
+          });
+          // Add delete button for each repository
+          var delBtn = document.createElement('button');
+          delBtn.textContent = "Delete";
+          delBtn.addEventListener('click', (function(repoName) {
+            return function() {
+              if (confirm("Delete repository '" + repoName + "'?")) {
+                delete repositories[repoName];
+                saveRepos();
+                renderRepoList();
+              }
+            };
+          })(repo));
+          // Append repo link and delete button to list
+          li.appendChild(link);
+          li.appendChild(document.createTextNode(" "));
+          li.appendChild(delBtn);
+          reposUl.appendChild(li);
+        }
+        updateStats(); // Refresh stats after rendering
+      }
+      // Create new repository
+      document.getElementById('createRepo').addEventListener('click', function() {
+        var repoName = document.getElementById('repoName').value.trim();
+        // Validate input
+        if (!repoName) {
+          alert("Repository name cannot be empty!");
+          return;
+        }
+        if (repositories[repoName]) {
+          alert("Repository already exists!");
+          return;
+        }
+        // Add repository
+        repositories[repoName] = {
+          files: {}
+        };
+        saveRepos();
+        renderRepoList();
+        document.getElementById('repoName').value = '';
+      });
+      // Show the selected repository's details and files
+      function showRepo(repoName) {
+        document.getElementById('repoDetails').style.display = 'block';
+        document.getElementById('repoList').style.display = 'none';
+        document.getElementById('newRepo').style.display = 'none';
+        document.getElementById('repoTitle').textContent = "Repository: " + repoName;
+        renderFiles(repoName);
+        window.currentRepo = repoName;
+      }
+      // Render files in the selected repository
+      function renderFiles(repoName) {
+        var filesUl = document.getElementById('filesList');
+        filesUl.innerHTML = '';
+        var files = repositories[repoName].files;
+        for (var file in files) {
+          var li = document.createElement('li');
+          var link = document.createElement('a');
+          link.href = "#";
+          link.textContent = file;
+          link.dataset.file = file;
+          // Display file content when clicked
+          link.addEventListener('click', function(e) {
+            displayFileContent(window.currentRepo, e.target.dataset.file);
+          });
+          // Delete file button
+          var delBtn = document.createElement('button');
+          delBtn.textContent = "Delete";
+          delBtn.addEventListener('click', (function(fileName) {
+            return function() {
+              if (confirm("Delete file '" + fileName + "'?")) {
+                delete repositories[window.currentRepo].files[fileName];
+                saveRepos();
+                renderFiles(window.currentRepo);
+                // Clear editor and display
+                document.getElementById('displayFileContent').textContent = '';
+                document.getElementById('fileName').value = '';
+                document.getElementById('fileContent').value = '';
+                currentEditingFile = null;
+                document.getElementById('saveChanges').style.display = 'none';
+              }
+            };
+          })(file));
+          li.appendChild(link);
+          li.appendChild(document.createTextNode(" "));
+          li.appendChild(delBtn);
+          filesUl.appendChild(li);
+        }
+        updateStats(); // Refresh stats after rendering
+      }
+      // Add or overwrite file in current repository
+      document.getElementById('addFile').addEventListener('click', function() {
+        var fileName = document.getElementById('fileName').value.trim();
+        var fileContent = document.getElementById('fileContent').value;
+        // Validate input
+        if (!fileName) {
+          alert("File name cannot be empty!");
+          return;
+        }
+        // Check if overwriting existing file
+        if (repositories[window.currentRepo].files[fileName]) {
+          var confirmOverwrite = confirm("A file named '" + fileName + "' already exists in this repository. Do you want to overwrite it?");
+          if (!confirmOverwrite) return;
+        }
+        // Save file
+        repositories[window.currentRepo].files[fileName] = fileContent;
+        saveRepos();
+        renderFiles(window.currentRepo);
+        // Clear form
+        document.getElementById('fileName').value = '';
+        document.getElementById('fileContent').value = '';
+        document.getElementById('displayFileContent').textContent = '';
+        currentEditingFile = null;
+        document.getElementById('saveChanges').style.display = 'none';
+      });
+      // Show file content in preview and editor
+      function displayFileContent(repoName, fileName) {
+        var content = repositories[repoName].files[fileName];
+        document.getElementById('displayFileContent').textContent = "File: " + fileName + "\n\n" + content;
+        // Load into editor for editing
+        document.getElementById('fileName').value = fileName;
+        document.getElementById('fileContent').value = content;
+        currentEditingFile = fileName;
+        document.getElementById('saveChanges').style.display = 'inline';
+      }
+      // Save edits to current file
+      document.getElementById('saveChanges').addEventListener('click', function() {
+        if (!currentEditingFile) return;
+        var updatedContent = document.getElementById('fileContent').value;
+        repositories[window.currentRepo].files[currentEditingFile] = updatedContent;
+        saveRepos();
+        renderFiles(window.currentRepo);
+        displayFileContent(window.currentRepo, currentEditingFile);
+        alert("Changes saved.");
+      });
+      // Return to main repository list view
+      document.getElementById('backToRepos').addEventListener('click', function() {
+        document.getElementById('repoDetails').style.display = 'none';
+        document.getElementById('repoList').style.display = 'block';
+        document.getElementById('newRepo').style.display = 'block';
+        // Clear file editor and display
+        document.getElementById('displayFileContent').textContent = '';
+        document.getElementById('fileName').value = '';
+        document.getElementById('fileContent').value = '';
+        currentEditingFile = null;
+        document.getElementById('saveChanges').style.display = 'none';
+        updateStats();
+      });
+      // Export repositories to a downloadable JSON file
+      document.getElementById('exportData').addEventListener('click', function() {
+        var data = localStorage.getItem('repositories');
+        var blob = new Blob([data], {
+          type: 'application/json'
+        });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'localhub_backup.json';
+        a.click();
+        URL.revokeObjectURL(url); // Clean up
+      });
+      // Import repositories from a JSON file
+      document.getElementById('importData').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          try {
+            var imported = JSON.parse(event.target.result);
+            if (typeof imported !== 'object') throw new Error("Invalid format");
+            repositories = imported;
+            saveRepos();
+            renderRepoList();
+            alert("Data imported successfully!");
+          } catch (err) {
+            alert("Failed to import data: " + err.message);
+          }
+        };
+        reader.readAsText(file);
+      });
+      // Initial render on load
+      renderRepoList();
+      updateStats();
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <!-- Collapsible 'About' section providing a description of the site -->
+    <details>
+      <summary>About</summary>
+      <p>
+        LocalHub is a private sandbox version of GitHub (without collaboration).
+        Built using JavaScript and its LocalStorage technology to store your repositories locally to your browser.
+      </p>
+      <p>
+        NOTE: LocalHub is intended for those who are already familiar with GitHub and related systems.
+      </p>
+    </details>
+
+    <!-- Copyright and hosting info -->
+    <p>
+      2025 LocalHub | Hosted via
+      <a href="https://neocities.org/">Neocities.org</a>
+      by
+      <a href="https://duffin.neocities.org/">Duffin</a>
+    </p>
+  </footer>
+
+</body>
+
+</html>
