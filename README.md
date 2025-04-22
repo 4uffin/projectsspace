@@ -38,3 +38,7 @@ If you'd like to help me with my projects (ex. you find something that could be 
 
 - **Tib - TinyWeb:** [Visit](https://duffin.neocities.org/tinyweb/home)
   An open-source project enabling users to discover user-submitted URLs based on interests. Developed with accessibility and user experience in mind.
+
+---
+
+![Repo size](https://img.shields.io/github/repo-size/4uffin/projectsspace?style=flat-square&label=Repository%20Size)
