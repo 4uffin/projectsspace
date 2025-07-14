@@ -8,9 +8,6 @@ If you'd like to help me with my projects (ex. you find something that could be 
 
 # Projects List - Ease of access
 *(Newest to Oldest)*
-
-- **LocalHub:** [Visit](https://duffin.neocities.org/localhub/)
-  A private sandbox version of GitHub (without collaboration). Built using JavaScript and its LocalStorage technology to store your repositories locally to your browser.
   
 - **Notes App:** [Visit](https://duffin.neocities.org/notesapp/notes)
   A simple, accessible notes app. It lets you create, save, delete, and pin notes, with all your data stored locally in your browser.
