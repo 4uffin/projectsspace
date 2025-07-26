@@ -2,232 +2,364 @@
 <html lang="en">
 
 <head>
-  <!-- Meta Information -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RandomURL</title>
+    <!-- Meta Information -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RandomURL</title>
 
-  <!-- Styles -->
-  <style>
-    /* Body Styles */
-    body {
-      font-family: 'Arial', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: #f0f0f0;
-      margin: 0;
-    }
+    <!-- Styles -->
+    <style>
+        /* Body Styles */
+        body {
+            font-family: 'Inter', sans-serif; /* Changed to Inter font */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Use min-height for better responsiveness */
+            background: #f0f0f0;
+            margin: 0;
+            padding: 20px; /* Add padding for small screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
 
-    /* Header Styles */
-    h1 {
-      color: #333;
-      margin-bottom: 20px;
-    }
+        /* Header Styles */
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-    /* Container Styles */
-    .container {
-      text-align: center;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      max-width: 600px;
-      width: 100%;
-      box-sizing: border-box;
-    }
+        /* Container Styles */
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 12px; /* Added rounded corners */
+        }
 
-    /* Logo Styles */
-    .logo {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
-    }
+        /* Logo Styles */
+        .logo {
+            font-size: 28px; /* Slightly larger font */
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.3);
+        }
 
-    .logo span {
-      color: #333;
-    }
+        .logo span {
+            color: #333;
+        }
 
-    .logo .url-part {
-      color: #27f136;
-    }
+        .logo .url-part {
+            color: #27f136;
+        }
 
-    /* Button Styles */
-    .generate-btn {
-      padding: 12px 24px;
-      background-color: #27f136;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
-      margin-bottom: 20px;
-    }
+        /* Button Group Styles */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+        }
 
-    .generate-btn:hover {
-      background-color: #1ea72a;
-    }
+        /* Button Styles */
+        .generate-btn, .copy-btn {
+            padding: 12px 24px;
+            background-color: #27f136;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 8px; /* Added rounded corners */
+        }
 
-    /* Random Link Styles */
-    .random-link {
-      display: block;
-      margin-top: 20px;
-      font-size: 16px;
-      color: #007bff;
-      text-decoration: none;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-      hyphens: auto;
-    }
+        .generate-btn:hover, .copy-btn:hover {
+            background-color: #1ea72a;
+            transform: translateY(-2px); /* Slight lift effect */
+        }
 
-    .random-link:hover {
-      color: #0056b3;
-    }
+        .copy-btn {
+            background-color: #007bff; /* Different color for copy button */
+        }
 
-    /* Rainbow Text Animation */
-    .rainbow-text {
-      background-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: rainbow 3s infinite linear;
-    }
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }
 
-    @keyframes rainbow {
-      0% {
-        background-position: 0%;
-      }
+        /* Random Link Styles */
+        .random-link {
+            display: block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+            text-decoration: none;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            /* Removed hyphens: auto; for consistent word breaking */
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            text-align: left;
+            word-break: break-all; /* Ensures long URLs break correctly without hyphenation */
+        }
 
-      100% {
-        background-position: 100%;
-      }
-    }
+        .random-link:hover {
+            color: #0056b3;
+        }
 
-    /* Disclaimer Styles */
-    .disclaimer {
-      margin-top: 20px;
-      font-size: 14px;
-      color: #666;
-      line-height: 1.5;
-      overflow-wrap: break-word;
-      word-wrap: break-word;
-    }
-  </style>
+        /* Copy Feedback Styles */
+        .copy-feedback {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #28a745; /* Green for success */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+        }
+
+        /* Rainbow Text Animation */
+        .rainbow-text {
+            background-image: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: rainbow 3s infinite linear;
+        }
+
+        @keyframes rainbow {
+            0% {
+                background-position: 0%;
+            }
+
+            100% {
+                background-position: 100%;
+            }
+        }
+
+        /* Disclaimer Styles */
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            /* Removed hyphens: auto; to prevent word splitting */
+            /* Ensure long words break correctly without hyphenation */
+            word-break: break-word;
+            overflow-wrap: break-word;
+            /* Removed text-align: justify; to remove character spacing */
+            text-align: left; /* Default alignment, or center if preferred for overall container */
+        }
+    </style>
+    <!-- Google Fonts for Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <!-- Main Container -->
-  <div class="container">
-    <!-- Logo -->
-    <div class="logo">
-      <span>Random</span><span class="url-part">URL</span>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo">
+            <span>Random</span><span class="url-part">URL</span>
+        </div>
+
+        <!-- Button Group -->
+        <div class="button-group">
+            <!-- Generate URL Button -->
+            <button class="generate-btn" onclick="generateURL()" title="Generate URL">Generate Random URL</button>
+            <!-- Copy URL Button -->
+            <button id="copyBtn" class="copy-btn" onclick="copyURL()" title="Copy URL" style="display: none;">Copy URL</button>
+        </div>
+
+        <!-- Random URL Display -->
+        <a id="randomLink" class="random-link" href="#" target="_blank" style="display: none;" title="Click me!"></a>
+
+        <!-- Copy Feedback Message -->
+        <div id="copyFeedback" class="copy-feedback">URL Copied!</div>
+
+        <!-- Disclaimer Text -->
+        <p class="disclaimer">
+            Disclaimer: The URLs generated by this tool are created using algorithms and may not be safe or valid. Always verify the authenticity and security of a URL before visiting it.
+        </p>
     </div>
 
-    <!-- Generate URL Button -->
-    <button class="generate-btn" onclick="generateURL()" title="Generate URL">Generate Random URL</button>
+    <!-- JavaScript Section -->
+    <script>
+        // Character Arrays for URL generation
+        const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
+        const consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 't', 'v', 'w', 'x', 'z'];
+        const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        const letters = [...vowels, ...consonants];
+        const alphanumeric = [...letters, ...numbers];
 
-    <!-- Random URL Display -->
-    <a id="randomLink" class="random-link" href="#" target="_blank" style="display: none;" title="Click me!"></a>
+        // Simplified common words for more realistic domain names and paths
+        const commonWords = [
+            'web', 'site', 'app', 'online', 'data', 'cloud', 'link', 'info', 'tech', 'zone',
+            'portal', 'service', 'system', 'solution', 'hub', 'lab', 'tools', 'platform',
+            'news', 'blog', 'shop', 'store', 'my', 'your', 'free', 'secure', 'global'
+        ];
 
-    <!-- Disclaimer Text -->
-    <p class="disclaimer">
-      Disclaimer: The URLs generated by this tool are created using algorithms and may not be safe or valid. Always verify the authenticity and security of a URL before visiting it.
-    </p>
-  </div>
+        // Common Top-Level Domains (TLDs) for higher validity
+        const tlds = [
+            '.com', '.net', '.org', '.io', '.co', '.us', '.dev', '.app', '.online', '.site', '.blog', '.store'
+        ];
 
-  <!-- JavaScript Section -->
-  <script>
-    // Character Arrays
-    const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
-    const consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 't', 'v', 'w', 'x', 'z'];
-    const prefixes = ['super', 'mega', 'ultra', 'cyber', 'tech', 'e', 'pro', 'global', 'next', 'smart'];
-    const suffixes = ['ly', 'ify', 'able', 'ness', 'ment', 'ion', 'er', 'est', 'us'];
-    const tlds = ['.com', '.net', '.org', '.io', '.xyz', '.tech', '.dev', '.us', '.co', '.biz', '.info', '.ai', '.app', '.online'];
-    const subdomains = ['www', 'app', 'blog', 'shop', 'api', 'store', 'forum', 'news', 'profile', 'data', 'docs'];
-    const specialChars = ['-', '_', '~', '+', '=', '#'];
-    const protocols = ['https://', 'http://'];
-    const fileExtensions = ['.html', '.php', '.asp', '.cgi', '.json', '.xml', '.txt', '.pdf', '.jpg'];
-    const queryParams = [
-      '?search=test',
-      '?page=1',
-      '?lang=en',
-      '?sort=asc',
-      '?filter=active',
-      '?category=technology',
-      '?tag=featured',
-      '?topic=latest',
-      '?source=feed'
-    ];
+        // Common path segments (simplified)
+        const pathSegments = [
+            'users', 'products', 'articles', 'dashboard', 'settings', 'profile', 'data', 'files', 'public'
+        ];
 
-    // Function to Generate a Random Word
-    function generateRandomWord() {
-      let word = '';
-      const wordLength = Math.floor(Math.random() * 6) + 3; // Random length between 3 and 8
-      if (Math.random() < 0.5) {
-        word += prefixes[Math.floor(Math.random() * prefixes.length)];
-      }
-      for (let i = 0; i < wordLength; i++) {
-        if (i % 2 === 0) {
-          word += consonants[Math.floor(Math.random() * consonants.length)];
-        } else {
-          word += vowels[Math.floor(Math.random() * vowels.length)];
+        // Supported protocols
+        const protocols = ['https://', 'http://'];
+
+        /**
+         * Gets a random element from a given array.
+         * @param {Array} arr - The array to pick a random element from.
+         * @returns {*} A random element from the array.
+         */
+        function getRandomElement(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
         }
-      }
-      if (Math.random() < 0.5) {
-        word += suffixes[Math.floor(Math.random() * suffixes.length)];
-      }
-      return word;
-    }
 
-    // Function to Generate a Random URL
-    function generateURL() {
-      const maxLength = 2048; // Maximum URL length
-      let randomURL;
-      const randomProtocol = protocols[Math.floor(Math.random() * protocols.length)];
-      const randomTLD = tlds[Math.floor(Math.random() * tlds.length)];
-      const isMainDomain = Math.random() < 0.5;
-      const isDeepPath = Math.random() < 0.5;
-      const useWWW = Math.random() < 0.5;
-
-      // Generate main domain or subdomain URL
-      if (isMainDomain) {
-        randomURL = `${randomProtocol}${useWWW ? 'www.' : ''}${generateRandomWord()}${randomTLD}`;
-      } else {
-        const randomSubdomains = [];
-        if (useWWW) randomSubdomains.push('www');
-        randomSubdomains.push(generateRandomWord());
-        for (let i = 0; i < Math.floor(Math.random() * 2) + 1; i++) {
-          randomSubdomains.push(generateRandomWord());
+        /**
+         * Generates a random segment of characters.
+         * @param {number} minLength - The minimum length of the segment.
+         * @param {number} maxLength - The maximum length of the segment.
+         * @param {Array<string>} charSet - The set of characters to choose from.
+         * @returns {string} A randomly generated segment.
+         */
+        function generateRandomSegment(minLength, maxLength, charSet) {
+            let segment = '';
+            const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;
+            for (let i = 0; i < length; i++) {
+                segment += getRandomElement(charSet);
+            }
+            return segment;
         }
-        const randomPath = isDeepPath ?
-          `/${generateRandomWord()}/${generateRandomWord()}/${generateRandomWord()}/${generateRandomWord()}${fileExtensions[Math.floor(Math.random() * fileExtensions.length)]}` :
-          `/${generateRandomWord()}/${generateRandomWord()}${fileExtensions[Math.floor(Math.random() * fileExtensions.length)]}`;
-        const randomQuery = Math.random() < 0.5 ? queryParams[Math.floor(Math.random() * queryParams.length)] : '';
-        const randomSpecialChar = specialChars[Math.floor(Math.random() * specialChars.length)];
-        randomURL = `${randomProtocol}${randomSubdomains.join('.')}.${generateRandomWord()}${randomTLD}${randomPath}${randomSpecialChar}${randomQuery}`;
-      }
 
-      // Ensure the URL doesn't exceed the max length
-      if (randomURL.length > maxLength) {
-        randomURL = randomURL.substring(0, maxLength);
-      }
+        /**
+         * Generates a random domain name.
+         * @returns {string} A randomly generated domain name.
+         */
+        function generateDomainName() {
+            let domain = getRandomElement(commonWords); // Start with a common word
 
-      // Remove duplicate slashes
-      randomURL = randomURL.replace(/([^:]\/)\/+/g, "$1");
+            // 50% chance to add a small random alphanumeric suffix for variety
+            if (Math.random() < 0.5) {
+                domain += generateRandomSegment(2, 4, alphanumeric);
+            }
 
-      // Update the link element with the generated URL
-      const linkElement = document.getElementById('randomLink');
-      linkElement.href = randomURL;
-      linkElement.textContent = randomURL;
-      linkElement.style.display = 'block';
-      linkElement.classList.add('rainbow-text');
-    }
-  </script>
+            return domain.toLowerCase(); // Ensure domain is lowercase
+        }
+
+        /**
+         * Generates and displays a random URL.
+         */
+        function generateURL() {
+            const maxLength = 2048; // Maximum URL length to prevent excessively long URLs
+            let randomURL = getRandomElement(protocols);
+
+            // Build domain and TLD
+            randomURL += generateDomainName();
+            randomURL += getRandomElement(tlds);
+
+            // Add paths (50% chance for a single path segment)
+            if (Math.random() < 0.5) {
+                randomURL += '/' + getRandomElement(pathSegments);
+            }
+
+            // Trim URL if it exceeds max length
+            if (randomURL.length > maxLength) {
+                randomURL = randomURL.substring(0, maxLength);
+            }
+
+            // Remove any accidental duplicate slashes (e.g., http://example.com//path -> http://example.com/path)
+            randomURL = randomURL.replace(/([^:]\/)\/+/g, "$1");
+
+            // Get DOM elements for display
+            const linkElement = document.getElementById('randomLink');
+            const copyBtn = document.getElementById('copyBtn');
+
+            // Update the displayed URL and make it visible
+            linkElement.href = randomURL;
+            linkElement.textContent = randomURL;
+            linkElement.style.display = 'block'; // Ensure the link is visible
+            linkElement.classList.add('rainbow-text'); // Apply rainbow text animation
+            copyBtn.style.display = 'inline-block'; // Ensure the copy button is visible
+
+            // Hide the copy feedback message if it was previously shown
+            const copyFeedback = document.getElementById('copyFeedback');
+            copyFeedback.classList.remove('show');
+        }
+
+        /**
+         * Copies the currently displayed URL to the clipboard.
+         */
+        function copyURL() {
+            const linkElement = document.getElementById('randomLink');
+            const urlToCopy = linkElement.textContent;
+
+            // Create a temporary textarea element to hold the text for copying
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = urlToCopy;
+            document.body.appendChild(tempTextArea); // Append to body to make it selectable
+            tempTextArea.select(); // Select the text
+
+            try {
+                // Execute the copy command
+                const successful = document.execCommand('copy');
+                const copyFeedback = document.getElementById('copyFeedback');
+
+                // Provide feedback to the user
+                if (successful) {
+                    copyFeedback.textContent = 'URL Copied!';
+                    copyFeedback.classList.add('show');
+                    // Hide feedback after 2 seconds
+                    setTimeout(() => {
+                        copyFeedback.classList.remove('show');
+                    }, 2000);
+                } else {
+                    // Fallback for unsuccessful copy
+                    copyFeedback.textContent = 'Failed to copy URL.';
+                    copyFeedback.style.color = 'red';
+                    copyFeedback.classList.add('show');
+                    setTimeout(() => {
+                        copyFeedback.classList.remove('show');
+                        copyFeedback.style.color = '#28a745'; // Reset color
+                    }, 2000);
+                }
+            } catch (err) {
+                // Catch any errors during copy operation
+                console.error('Failed to copy text: ', err);
+                const copyFeedback = document.getElementById('copyFeedback');
+                copyFeedback.textContent = 'Copying not supported or failed.';
+                copyFeedback.style.color = 'red';
+                copyFeedback.classList.add('show');
+                setTimeout(() => {
+                    copyFeedback.classList.remove('show');
+                    copyFeedback.style.color = '#28a745'; // Reset color
+                }, 2000);
+            } finally {
+                // Clean up the temporary textarea
+                document.body.removeChild(tempTextArea);
+            }
+        }
+
+        // Generate a URL automatically when the page finishes loading for a better user experience.
+        // This ensures a URL is immediately visible without requiring user interaction to start.
+        window.addEventListener('DOMContentLoaded', generateURL);
+    </script>
 
 </body>
 
