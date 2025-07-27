@@ -2,8 +2,6 @@
 
 ## **Version: 2.10.0**
 
-## **Author: Connor**
-
 ## **1\. Introduction**
 
 The **PyCLI Toolkit** is a versatile command-line interface (CLI) application built with Python. It provides a wide array of functionalities ranging from basic arithmetic and file operations to advanced text analysis, system diagnostics, and network utilities. Designed for ease of use, it can operate in both standard command-line mode and an interactive shell.
