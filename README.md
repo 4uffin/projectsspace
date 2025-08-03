@@ -9,6 +9,9 @@ If you'd like to help me with my projects (ex. you find something that could be 
 # Projects List - Ease of access
 *(Newest to Oldest)*
   
+- **GitHub Contributions Art:** [Visit](https://duffin.neocities.org/ghart)
+  A simple and aesthetically pleasing way to view GitHub contribution graphs for any public GitHub user. It leverages an external service to generate the graph images, focusing on the visual patterns created by development activity.
+
 - **LocalHub:** [Visit](https://duffin.neocities.org/localhub/)
   LocalHub is a robust, private, and fully functional local repository manager designed for personal use directly within your web browser.
 
