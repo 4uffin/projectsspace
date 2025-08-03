@@ -1,10 +1,13 @@
-## projectsspace - Projects Space
-# Description:
-A place for me to store my projects on GitHub. You will most likely only find web-based projects here, as that's what I enjoy making.
+# duffin.neocities.org
 
-# Dislaimer:
-At this time I'm not really looking to let others import projects here, but that may change in the future.
-If you'd like to help me with my projects (ex. you find something that could be improved or changed) feel free to use the 'Issues' tab and I'll look into it and consider.
+## Description:
+An insight as to what the dashboard for https://duffin.neocities.org looks like.
+
+## Dislaimer:
+This copy of the website contents is lacking and is not an exact mirror of the actual website contents.
+
+## Contribute!
+For bug fixes and general improvements, be sure to visit the [Issues](https://github.com/4uffin/projectsspace/issues) tab!
 
 # Projects List - Ease of access
 *(Newest to Oldest)*
