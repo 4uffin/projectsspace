@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO & Social Media Meta Tags -->
+    <title>Zen Bluesky: A Random Thought Generator</title>
+    <meta name="description" content="A simple app that displays a continuous stream of random thoughts and posts from various public profiles on Bluesky.">
+
+    <!-- Open Graph (for Facebook, etc.) -->
+    <meta property="og:title" content="Zen Bluesky: A Random Thought Generator">
+    <meta property="og:description" content="A continuous stream of random thoughts and posts from the Bluesky community.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://duffin.neocities.org/zenmodebsky">
+    <!-- You could add an image tag here, e.g., og:image, if you had a logo -->
+    
+    <!-- Accessibility: Theme color for mobile browsers -->
+    <meta name="theme-color" content="#161b22">
+
+    <!-- Favicon: A simple SVG circle matching the brand color -->
+    <link rel="icon" href="https://duffin.neocities.org/images/zenbsky.png" />
+
+    <!-- Google Fonts: Lato -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --background-color: #0d1117; /* GitHub-like dark background */
+            --text-color: #c9d1d9; /* Lighter text for contrast */
+            --secondary-text-color: #8b949e; /* Muted text for details */
+            --accent-color: #58a6ff; /* A vibrant, modern blue */
+            --border-color: #21262d; /* A subtle, dark border */
+            --button-bg: #21262d; /* Darker button background */
+            --button-hover-bg: #30363d; /* Lighter button on hover */
+            --button-border: #30363d; /* Button border */
+            --container-bg: #161b22; /* Slightly lighter background for the container */
+            --container-hover-bg: #1e2a36; /* Darker container on hover */
+            --transition-speed: 0.3s;
+        }
+
+        body {
+            /* Use the new Lato font */
+            font-family: 'Lato', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: background-color var(--transition-speed);
+        }
+
+        .header-text {
+            color: var(--secondary-text-color);
+            margin-bottom: 20px;
+        }
+
+        .header-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            color: var(--text-color);
+        }
+
+        .header-text p {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        #refresh-button {
+            background-color: var(--button-bg);
+            color: var(--accent-color);
+            border: 1px solid var(--button-border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color var(--transition-speed), border-color var(--transition-speed);
+            margin-top: 10px;
+        }
+        
+        #refresh-button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        #refresh-button:hover:not(:disabled) {
+            background-color: var(--button-hover-bg);
+            border-color: var(--accent-color);
+        }
+
+        #countdown-timer {
+            font-size: 0.8rem;
+            color: var(--secondary-text-color);
+            margin-top: 8px;
+            font-family: monospace;
+            text-align: center;
+            display: block;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            flex-grow: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: background-color var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+            margin-top: 20px;
+        }
+
+        .container:hover {
+            background-color: var(--container-hover-bg);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+            border-color: var(--accent-color);
+        }
+
+        .post {
+            padding: 20px 0;
+            white-space: pre-wrap;
+            opacity: 0;
+            /* Added transform for the sliding animation */
+            transform: translateY(10px);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .post:last-child {
+            border-bottom: none;
+        }
+
+        .post-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: left;
+            color: var(--text-color);
+        }
+
+        .post-details {
+            font-size: 0.85rem;
+            color: var(--secondary-text-color);
+            text-align: left;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 10px;
+        }
+
+        .author-link {
+            font-weight: 600;
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        .author-link:hover {
+            text-decoration: underline;
+            color: #79c0ff;
+        }
+
+        .author {
+            display: block;
+            margin-right: 10px;
+        }
+
+        .post-bio {
+            font-style: italic;
+            margin: 5px 0;
+            display: block;
+        }
+
+        .timestamp {
+            font-size: 0.8em;
+            color: var(--secondary-text-color);
+            display: block;
+            margin-top: 10px;
+        }
+
+        .post.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #loading {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: var(--text-color);
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--secondary-text-color);
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-text">
+        <h1>Zen Bluesky</h1>
+        <p>A continuous stream of thoughts from the Bluesky community...</p>
+        <!-- Add an aria-label to improve accessibility for screen readers -->
+        <button id="refresh-button" aria-label="Next Thought">Next Thought</button>
+        <span id="countdown-timer"></span>
+    </div>
+
+    <!-- Use the main tag for the primary content of the page -->
+    <main class="container">
+        <div id="posts">
+            <!-- Add aria-live="polite" to make this a live region for screen readers -->
+            <div id="loading" aria-live="polite">Loading a random thought...</div>
+        </div>
+    </main>
+
+    <div class="footer-text">
+        <p>Posts are fetched from a selection of known public profiles.</p>
+    </div>
+
+    <script defer>
+        // Encapsulate all code in an IIFE to avoid polluting the global scope.
+        (function() {
+            // --- Constants & Config ---
+            const CONSTANTS = {
+                REFRESH_INTERVAL: 20, // Time in seconds
+                MAX_RETRIES: 5, // Maximum number of retries for a single fetch attempt
+                BUTTON_TEXT: "Next Thought",
+                BUTTON_LOADING_TEXT: "Loading...",
+                LOADING_INDICATOR_TEXT: "Loading a random thought...",
+                FINAL_ERROR_TEXT: "An error occurred and all retries failed. Please try again."
+            };
+
+            // --- DOM Elements ---
+            const postContainer = document.getElementById('posts');
+            const loadingIndicator = document.getElementById('loading');
+            const refreshButton = document.getElementById('refresh-button');
+            const countdownTimer = document.getElementById('countdown-timer');
+
+            // --- State Variables ---
+            let countdown = CONSTANTS.REFRESH_INTERVAL;
+            let countdownInterval;
+
+            // --- Data ---
+            const handles = [
+                'jaygraber.bsky.social',
+                'pfrazee.com',
+                'hailey.at',
+                'jaz.bsky.social',
+                'samuel.bsky.team',
+                'rose.bsky.team',
+                'bnewbold.net',
+                'emilyliu.me',
+                'retr0.id',
+                'dame.is',
+                'why.bsky.team',
+                'mary.my.id',
+                'divy.zone',
+                '4uffin.bsky.social'
+            ];
+
+            // --- Utility Functions ---
+
+            // Shuffles an array in place
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+            
+            // --- UI Functions ---
+            
+            function setLoadingState(isLoading) {
+                if (isLoading) {
+                    refreshButton.disabled = true;
+                    refreshButton.textContent = CONSTANTS.BUTTON_LOADING_TEXT;
+                    loadingIndicator.style.display = 'block';
+                    loadingIndicator.textContent = CONSTANTS.LOADING_INDICATOR_TEXT;
+                    countdownTimer.textContent = '';
+                } else {
+                    refreshButton.disabled = false;
+                    refreshButton.textContent = CONSTANTS.BUTTON_TEXT;
+                    startCountdownAndRefresh();
+                }
+            }
+
+            function renderPost(postData) {
+                loadingIndicator.style.display = 'none';
+                postContainer.innerHTML = '';
+                
+                // Use the article tag for each post to follow semantic HTML best practices
+                const postElement = document.createElement('article');
+                postElement.classList.add('post');
+                postElement.innerHTML = `
+                    <div class="post-content">${postData.postText}</div>
+                    <span class="timestamp">${new Date(postData.timestamp).toLocaleString('en-US', { timeStyle: 'short', dateStyle: 'short' })}</span>
+                    <div class="post-details">
+                        <a href="${postData.postLink}" target="_blank" class="author-link">
+                            <span class="author">${postData.feedTitle}</span>
+                        </a>
+                        <div class="post-bio">${postData.bio}</div>
+                    </div>
+                `;
+                postContainer.appendChild(postElement);
+                
+                setTimeout(() => {
+                    postElement.classList.add('visible');
+                }, 10);
+            }
+
+            function updateCountdownAndRefresh() {
+                countdown--;
+                countdownTimer.textContent = `Next in ${countdown}s`;
+
+                if (countdown <= 0) {
+                    fetchAndRenderRandomPost();
+                }
+            }
+            
+            function startCountdownAndRefresh() {
+                clearInterval(countdownInterval); // Clear any existing interval
+                countdown = CONSTANTS.REFRESH_INTERVAL;
+                countdownInterval = setInterval(updateCountdownAndRefresh, 1000);
+            }
+
+            // --- Core Logic ---
+            
+            async function fetchPostFromShuffledHandles(shuffledHandles, index = 0) {
+                if (index >= shuffledHandles.length) {
+                    throw new Error('Failed to find a valid post after trying all handles.');
+                }
+
+                const handle = shuffledHandles[index];
+                const feedUrl = `https://bsky.app/profile/${handle}/rss`;
+                const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`;
+
+                try {
+                    const response = await fetch(proxyUrl);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch RSS feed. Status: ${response.status} for handle: ${handle}`);
+                    }
+                    
+                    const xmlText = await response.text();
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+                    const posts = xmlDoc.querySelectorAll('item');
+                    
+                    const validPosts = Array.from(posts).filter(post => {
+                        const postText = post.querySelector('description')?.textContent;
+                        return postText && postText.trim() !== '';
+                    });
+
+                    if (validPosts.length === 0) {
+                        return fetchPostFromShuffledHandles(shuffledHandles, index + 1);
+                    }
+
+                    const randomPost = validPosts[Math.floor(Math.random() * validPosts.length)];
+                    const postText = randomPost.querySelector('description')?.textContent;
+                    const feedTitle = xmlDoc.querySelector('channel > title')?.textContent || handle;
+                    const timestamp = randomPost.querySelector('pubDate')?.textContent;
+                    const bio = xmlDoc.querySelector('channel > description')?.textContent || 'Bio not available.';
+                    const postLink = randomPost.querySelector('link')?.textContent || `https://bsky.app/profile/${handle}`;
+
+                    return { postText, feedTitle, timestamp, bio, postLink };
+
+                } catch (error) {
+                    console.error(`Error fetching from ${handle}: ${error.message}`);
+                    return fetchPostFromShuffledHandles(shuffledHandles, index + 1);
+                }
+            }
+            
+            async function fetchAndRenderRandomPost(retryCount = 0) {
+                setLoadingState(true);
+
+                try {
+                    const shuffledHandles = [...handles];
+                    shuffleArray(shuffledHandles);
+
+                    const postData = await fetchPostFromShuffledHandles(shuffledHandles);
+                    
+                    if (!postData) {
+                        throw new Error('Failed to find a valid post from any handle.');
+                    }
+                    
+                    renderPost(postData);
+                } catch (error) {
+                    console.error("Final attempt failed:", error);
+                    
+                    if (retryCount < CONSTANTS.MAX_RETRIES && error.message.includes('fetch')) {
+                        const delay = Math.pow(2, retryCount) * 1000;
+                        console.log(`Retrying in ${delay / 1000} seconds...`);
+                        setTimeout(() => fetchAndRenderRandomPost(retryCount + 1), delay);
+                    } else {
+                        loadingIndicator.textContent = CONSTANTS.FINAL_ERROR_TEXT;
+                        setLoadingState(false);
+                    }
+                } finally {
+                    // Only reset state if the process is completely finished and not in a retry loop
+                    if (retryCount >= CONSTANTS.MAX_RETRIES || !loadingIndicator.textContent.includes('Retrying')) {
+                        setLoadingState(false);
+                    }
+                }
+            }
+            
+            // --- Initialization ---
+            document.addEventListener('DOMContentLoaded', () => {
+                fetchAndRenderRandomPost();
+                
+                refreshButton.addEventListener('click', () => {
+                    fetchAndRenderRandomPost();
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
