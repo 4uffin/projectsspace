@@ -12,6 +12,9 @@ For bug fixes and general improvements, be sure to visit the [Issues](https://gi
 # Projects List - Ease of access
 *(Newest to Oldest)*
   
+- **Zen Bluesky:** [Visit](https://duffin.neocities.org/zenmodebsky)
+  A random thought generator that streams public posts from the Bluesky social network. It's a simple way to get a continuous feed of thoughts and ideas from a curated list of profiles.
+
 - **GitHub Contributions Art:** [Visit](https://duffin.neocities.org/ghart)
   A simple and aesthetically pleasing way to view GitHub contribution graphs for any public GitHub user. It leverages an external service to generate the graph images, focusing on the visual patterns created by development activity.
 
