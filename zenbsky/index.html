@@ -3,283 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO & Social Media Meta Tags -->
     <title>Zen Bluesky: A Random Thought Generator</title>
     <meta name="description" content="A simple app that displays a continuous stream of random thoughts and posts from various public profiles on Bluesky.">
 
-    <!-- Open Graph (for Facebook, etc.) -->
+    <!-- Open Graph (for Facebook, etc.): Used for social media link previews -->
     <meta property="og:title" content="Zen Bluesky: A Random Thought Generator">
     <meta property="og:description" content="A continuous stream of random thoughts and posts from the Bluesky community.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://duffin.neocities.org/zenmodebsky">
-    <!-- You could add an image tag here, e.g., og:image, if you had a logo -->
     
-    <!-- Accessibility: Theme color for mobile browsers -->
-    <meta name="theme-color" content="#161b22">
+    <!-- Accessibility: Theme color for mobile browsers' address bar -->
+    <meta name="theme-color" content="#1e293b">
 
     <!-- Favicon: A simple SVG circle matching the brand color -->
     <link rel="icon" href="https://duffin.neocities.org/images/zenbsky.png" />
 
-    <!-- Google Fonts: Lato -->
+    <!-- Google Fonts: Inter (a modern, clean font) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN for modern, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        :root {
-            --background-color: #0d1117; /* GitHub-like dark background */
-            --text-color: #c9d1d9; /* Lighter text for contrast */
-            --secondary-text-color: #8b949e; /* Muted text for details */
-            --accent-color: #58a6ff; /* A vibrant, modern blue */
-            --border-color: #21262d; /* A subtle, dark border */
-            --button-bg: #21262d; /* Darker button background */
-            --button-hover-bg: #30363d; /* Lighter button on hover */
-            --button-border: #30363d; /* Button border */
-            --container-bg: #161b22; /* Slightly lighter background for the container */
-            --container-hover-bg: #1e2a36; /* Darker container on hover */
-            --transition-speed: 0.3s;
-        }
-
+        /* Custom CSS to set the font for the entire body */
         body {
-            /* Use the new Lato font */
-            font-family: 'Lato', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            transition: background-color var(--transition-speed);
+            font-family: 'Inter', sans-serif;
         }
 
-        .header-text {
-            color: var(--secondary-text-color);
-            margin-bottom: 20px;
-        }
-
-        .header-text h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0;
-            color: var(--text-color);
-        }
-
-        .header-text p {
-            font-size: 0.9rem;
-            margin-top: 5px;
-        }
-
-        #refresh-button {
-            background-color: var(--button-bg);
-            color: var(--accent-color);
-            border: 1px solid var(--button-border);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background-color var(--transition-speed), border-color var(--transition-speed);
-            margin-top: 10px;
-        }
-        
-        #refresh-button:disabled {
-            cursor: not-allowed;
-            opacity: 0.6;
-        }
-
-        #refresh-button:hover:not(:disabled) {
-            background-color: var(--button-hover-bg);
-            border-color: var(--accent-color);
-        }
-
-        #countdown-timer {
-            font-size: 0.8rem;
-            color: var(--secondary-text-color);
-            margin-top: 8px;
-            font-family: monospace;
-            text-align: center;
-            display: block;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 600px;
-            padding: 20px;
-            background-color: var(--container-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            flex-grow: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            transition: background-color var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
-            margin-top: 20px;
-        }
-
-        .container:hover {
-            background-color: var(--container-hover-bg);
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-            border-color: var(--accent-color);
-        }
-
-        .post {
-            padding: 20px 0;
+        /* Custom CSS to handle formatting and word wrapping for all post text */
+        .post-content, .post-bio {
             white-space: pre-wrap;
-            opacity: 0;
-            /* Added transform for the sliding animation */
-            transform: translateY(10px);
-            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .post:last-child {
-            border-bottom: none;
-        }
-
-        .post-content {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            text-align: left;
-            color: var(--text-color);
-        }
-
-        .post-details {
-            font-size: 0.85rem;
-            color: var(--secondary-text-color);
-            text-align: left;
-            padding-top: 10px;
-            border-top: 1px solid var(--border-color);
-            margin-top: 10px;
-        }
-
-        .author-link {
-            font-weight: 600;
-            color: var(--accent-color);
-            text-decoration: none;
-            transition: color var(--transition-speed);
-        }
-
-        .author-link:hover {
-            text-decoration: underline;
-            color: #79c0ff;
-        }
-
-        .author {
-            display: block;
-            margin-right: 10px;
-        }
-
-        .post-bio {
-            font-style: italic;
-            margin: 5px 0;
-            display: block;
-        }
-
-        .timestamp {
-            font-size: 0.8em;
-            color: var(--secondary-text-color);
-            display: block;
-            margin-top: 10px;
-        }
-
-        .post.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #loading {
-            text-align: center;
-            padding: 20px;
-            font-style: italic;
-            color: var(--text-color);
-        }
-
-        .footer-text {
-            font-size: 0.8rem;
-            color: var(--secondary-text-color);
-            margin-top: 20px;
+            word-break: break-all;
         }
     </style>
 </head>
-<body>
-    <div class="header-text">
-        <h1>Zen Bluesky</h1>
-        <p>A continuous stream of thoughts from the Bluesky community...</p>
-        <!-- Add an aria-label to improve accessibility for screen readers -->
-        <button id="refresh-button" aria-label="Next Thought">Next Thought</button>
-        <span id="countdown-timer"></span>
-    </div>
+<body class="bg-slate-900 text-slate-300 flex flex-col items-center p-4 min-h-screen">
+    <!-- Header section with the main title, description, and controls -->
+    <header class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-slate-100 mb-1">Zen Bluesky</h1>
+        <p class="text-sm text-slate-400">A continuous stream of thoughts from the Bluesky community...</p>
+        <button id="refresh-button" class="mt-4 px-6 py-2 bg-slate-800 text-sky-400 border border-slate-700 rounded-full font-semibold text-sm transition-colors hover:bg-slate-700 hover:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+            Next Thought
+        </button>
+        <div id="countdown-timer" class="mt-2 text-xs font-mono text-slate-500"></div>
+    </header>
 
-    <!-- Use the main tag for the primary content of the page -->
-    <main class="container">
+    <!-- Main content area for displaying the post -->
+    <main class="container w-full max-w-lg p-6">
         <div id="posts">
-            <!-- Add aria-live="polite" to make this a live region for screen readers -->
-            <div id="loading" aria-live="polite">Loading a random thought...</div>
+            <!-- Loading indicator shown while a new post is being fetched -->
+            <div id="loading" class="text-center italic text-slate-400">Loading a random thought...</div>
         </div>
     </main>
 
-    <div class="footer-text">
+    <!-- Footer section with a small disclaimer -->
+    <footer class="mt-8 text-sm text-slate-500">
         <p>Posts are fetched from a selection of known public profiles.</p>
-    </div>
+    </footer>
 
     <script defer>
-        // Encapsulate all code in an IIFE to avoid polluting the global scope.
+        // Encapsulate all code in an Immediately Invoked Function Expression (IIFE)
+        // to prevent global scope pollution.
         (function() {
             // --- Constants & Config ---
+            // A collection of constants used throughout the script for easy configuration
             const CONSTANTS = {
-                REFRESH_INTERVAL: 20, // Time in seconds
+                REFRESH_INTERVAL: 20, // Time in seconds for automatic refresh
                 MAX_RETRIES: 5, // Maximum number of retries for a single fetch attempt
                 BUTTON_TEXT: "Next Thought",
                 BUTTON_LOADING_TEXT: "Loading...",
                 LOADING_INDICATOR_TEXT: "Loading a random thought...",
-                FINAL_ERROR_TEXT: "An error occurred and all retries failed. Please try again."
+                FINAL_ERROR_TEXT: "An error occurred. Please try again."
             };
 
             // --- DOM Elements ---
+            // Get references to all necessary HTML elements
             const postContainer = document.getElementById('posts');
             const loadingIndicator = document.getElementById('loading');
             const refreshButton = document.getElementById('refresh-button');
             const countdownTimer = document.getElementById('countdown-timer');
 
             // --- State Variables ---
+            // Variables to manage the countdown state
             let countdown = CONSTANTS.REFRESH_INTERVAL;
             let countdownInterval;
 
             // --- Sorted Data ---
+            // A list of Bluesky handles to pull posts from
             const handles = [
-              '4uffin.bsky.social',
-              'bnewbold.net',
-              'cameron.pfiffer.org',
-              'dame.is',
-              'danabra.mov',
-              'divy.zone',
-              'emilyliu.me',
-              'hailey.at',
-              'j4ck.xyz',
-              'jaygraber.bsky.social',
-              'jaz.bsky.social',
-              'laurenshof.online',
-              'mackuba.eu',
-              'mary.my.id',
-              'natalie.sh',
-              'neal.fun',
-              'now.dame.is',
-              'pfrazee.com',
-              'retr0.id',
-              'rose.bsky.team',
-              'samuel.bsky.team',
-              'tom.sherman.is',
-              'tomwarren.co.uk',
-              'why.bsky.team',
+                '4uffin.bsky.social',
+                'bnewbold.net',
+                'cameron.pfiffer.org',
+                'dame.is',
+                'danabra.mov',
+                'divy.zone',
+                'emilyliu.me',
+                'hailey.at',
+                'j4ck.xyz',
+                'jaygraber.bsky.social',
+                'jaz.bsky.social',
+                'laurenshof.online',
+                'mackuba.eu',
+                'mary.my.id',
+                'natalie.sh',
+                'neal.fun',
+                'now.dame.is',
+                'pfrazee.com',
+                'retr0.id',
+                'rose.bsky.team',
+                'samuel.bsky.team',
+                'tom.sherman.is',
+                'tomwarren.co.uk',
+                'why.bsky.team',
             ];
 
             // --- Utility Functions ---
 
-            // Shuffles an array in place
+            // Shuffles an array in place using the Fisher-Yates (Knuth) algorithm
             function shuffleArray(array) {
                 for (let i = array.length - 1; i > 0; i--) {
                     const j = Math.floor(Math.random() * (i + 1));
@@ -289,6 +130,7 @@
             
             // --- UI Functions ---
             
+            // Sets the UI state to show either loading or ready
             function setLoadingState(isLoading) {
                 if (isLoading) {
                     refreshButton.disabled = true;
@@ -296,6 +138,7 @@
                     loadingIndicator.style.display = 'block';
                     loadingIndicator.textContent = CONSTANTS.LOADING_INDICATOR_TEXT;
                     countdownTimer.textContent = '';
+                    clearInterval(countdownInterval);
                 } else {
                     refreshButton.disabled = false;
                     refreshButton.textContent = CONSTANTS.BUTTON_TEXT;
@@ -303,30 +146,35 @@
                 }
             }
 
+            // Creates and inserts the post HTML into the page
             function renderPost(postData) {
                 loadingIndicator.style.display = 'none';
                 postContainer.innerHTML = '';
                 
                 // Use the article tag for each post to follow semantic HTML best practices
                 const postElement = document.createElement('article');
-                postElement.classList.add('post');
+                // Apply Tailwind classes for styling and the fade-in animation, including the new hover effect
+                postElement.classList.add('post', 'p-4', 'bg-slate-700', 'rounded-lg', 'shadow-md', 'border', 'border-slate-600', 'transition-all', 'duration-500', 'transform', 'translate-y-2', 'opacity-0', 'hover:bg-slate-600', 'hover:border-sky-400');
                 postElement.innerHTML = `
-                    <div class="post-content">${postData.postText}</div>
-                    <span class="timestamp">${new Date(postData.timestamp).toLocaleString('en-US', { timeStyle: 'short', dateStyle: 'short' })}</span>
-                    <div class="post-details">
-                        <a href="${postData.postLink}" target="_blank" class="author-link">
+                    <div class="post-content text-slate-200 text-lg leading-relaxed">${postData.postText}</div>
+                    <span class="timestamp mt-2 text-sm text-slate-400 block">${new Date(postData.timestamp).toLocaleString('en-US', { timeStyle: 'short', dateStyle: 'short' })}</span>
+                    <div class="post-details mt-4 pt-4 border-t border-slate-600 text-sm text-slate-400">
+                        <a href="${postData.postLink}" target="_blank" class="author-link font-semibold text-sky-400 hover:underline">
                             <span class="author">${postData.feedTitle}</span>
                         </a>
-                        <div class="post-bio">${postData.bio}</div>
+                        <div class="post-bio italic">${postData.bio}</div>
                     </div>
                 `;
                 postContainer.appendChild(postElement);
                 
+                // Trigger the fade-in animation by removing the initial classes after a short delay
                 setTimeout(() => {
-                    postElement.classList.add('visible');
+                    postElement.classList.remove('translate-y-2', 'opacity-0');
+                    postElement.classList.add('translate-y-0', 'opacity-100');
                 }, 10);
             }
 
+            // Decrements the countdown timer and triggers a refresh when it reaches zero
             function updateCountdownAndRefresh() {
                 countdown--;
                 countdownTimer.textContent = `Next in ${countdown}s`;
@@ -336,21 +184,26 @@
                 }
             }
             
+            // Starts or resets the countdown timer
             function startCountdownAndRefresh() {
                 clearInterval(countdownInterval); // Clear any existing interval
                 countdown = CONSTANTS.REFRESH_INTERVAL;
+                countdownTimer.textContent = `Next in ${countdown}s`;
                 countdownInterval = setInterval(updateCountdownAndRefresh, 1000);
             }
 
             // --- Core Logic ---
             
+            // Recursive function to fetch a valid post by trying different handles
             async function fetchPostFromShuffledHandles(shuffledHandles, index = 0) {
+                // If we've tried all handles and found no valid posts, throw an error
                 if (index >= shuffledHandles.length) {
                     throw new Error('Failed to find a valid post after trying all handles.');
                 }
 
                 const handle = shuffledHandles[index];
                 const feedUrl = `https://bsky.app/profile/${handle}/rss`;
+                // Using a proxy to bypass CORS restrictions
                 const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(feedUrl)}`;
 
                 try {
@@ -364,34 +217,43 @@
                     const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
                     const posts = xmlDoc.querySelectorAll('item');
                     
+                    // Filter out any posts that don't have text content
                     const validPosts = Array.from(posts).filter(post => {
                         const postText = post.querySelector('description')?.textContent;
                         return postText && postText.trim() !== '';
                     });
 
+                    // If no valid posts, try the next handle in the shuffled list
                     if (validPosts.length === 0) {
                         return fetchPostFromShuffledHandles(shuffledHandles, index + 1);
                     }
 
+                    // Select a random valid post from the list
                     const randomPost = validPosts[Math.floor(Math.random() * validPosts.length)];
+                    
+                    // Extract the necessary data from the XML
                     const postText = randomPost.querySelector('description')?.textContent;
                     const feedTitle = xmlDoc.querySelector('channel > title')?.textContent || handle;
                     const timestamp = randomPost.querySelector('pubDate')?.textContent;
                     const bio = xmlDoc.querySelector('channel > description')?.textContent || 'Bio not available.';
                     const postLink = randomPost.querySelector('link')?.textContent || `https://bsky.app/profile/${handle}`;
 
+                    // Return an object containing the post data
                     return { postText, feedTitle, timestamp, bio, postLink };
 
                 } catch (error) {
+                    // If an error occurs, log it and try the next handle
                     console.error(`Error fetching from ${handle}: ${error.message}`);
                     return fetchPostFromShuffledHandles(shuffledHandles, index + 1);
                 }
             }
             
+            // Main function to fetch, retry on failure, and render a post
             async function fetchAndRenderRandomPost(retryCount = 0) {
                 setLoadingState(true);
 
                 try {
+                    // Create a shuffled copy of the handles array to ensure randomness
                     const shuffledHandles = [...handles];
                     shuffleArray(shuffledHandles);
 
@@ -405,13 +267,14 @@
                 } catch (error) {
                     console.error("Final attempt failed:", error);
                     
+                    // Implement an exponential backoff retry strategy if the error is a fetch issue
                     if (retryCount < CONSTANTS.MAX_RETRIES && error.message.includes('fetch')) {
                         const delay = Math.pow(2, retryCount) * 1000;
                         console.log(`Retrying in ${delay / 1000} seconds...`);
                         setTimeout(() => fetchAndRenderRandomPost(retryCount + 1), delay);
                     } else {
+                        // Display a final error message after all retries have failed
                         loadingIndicator.textContent = CONSTANTS.FINAL_ERROR_TEXT;
-                        setLoadingState(false);
                     }
                 } finally {
                     // Only reset state if the process is completely finished and not in a retry loop
@@ -422,9 +285,11 @@
             }
             
             // --- Initialization ---
+            // Wait for the DOM to be fully loaded before running the script
             document.addEventListener('DOMContentLoaded', () => {
                 fetchAndRenderRandomPost();
                 
+                // Add an event listener to the refresh button to manually fetch a new post
                 refreshButton.addEventListener('click', () => {
                     fetchAndRenderRandomPost();
                 });
